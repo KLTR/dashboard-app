@@ -1,8 +1,8 @@
-var mangoose = require('mongoose'),
+var mongoose = require('mongoose'),
     schema   = mongoose.Schema,
 
     ReportSchema = new schema({
-        date: {type:Date, required: true, default: currDate()},
+        date: {type:Date, required: true, default: Date.now},
         mcafee: Number,
         teknas: Number,
         snow: Number,
