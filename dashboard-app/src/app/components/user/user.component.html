@@ -5,6 +5,7 @@
             <div class="col-lg-8">
                 <h1>Weekly Reports Dashboard</h1>
                 <button class="btn btn-primary">Click to view reports</button>
+                <button (click)="login()" class="btn btn-danger">Admin Login</button>
             </div>
         </div>
     </div>
@@ -24,7 +25,7 @@
 
         <h2 class="header">Raw Tps Alerts </h2>
         <div class="col-md-4  doughnut card">
-            <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+            <canvas baseChart [data]="doughnutChartDataRaw" [labels]="doughnutChartLabelsRaw" [chartType]="doughnutChartTypeRaw" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
             </canvas>
             <!-- doughnut  -->
         </div>
@@ -41,12 +42,12 @@
 
         <h2 class="header">Security Alerts By Type </h2>
         <div class="col-md-4  doughnut card">
-            <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+            <canvas baseChart [data]="doughnutChartDataType" [labels]="doughnutChartLabelsType" [chartType]="doughnutChartTypeType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
             </canvas>
             <!-- doughnut  -->
         </div>
         <div class="col-md-7 baseChart card">
-            <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+            <canvas baseChart [datasets]="barChartDataType" [labels]="barChartLabelsType" [options]="barChartOptionsType" [legend]="barChartLegendType" [chartType]="barChartTypeType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
             <!-- base chart -->
         </div>
     </div>
@@ -66,9 +67,7 @@
             <!-- base chart -->
         </div>
         <!--Row  -->
-        <div class="col-lg-1">
-            <button (click)="login()" class="btn btn-danger">Admin Login</button>
-        </div>
+
     </div>
     <!--container  -->
 </div>

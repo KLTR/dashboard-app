@@ -16,6 +16,14 @@ private rawTpsFlag;
 public doughnutChartLabels:string[] = ['TPS', 'Ziften', 'McAfee', 'Teknas','Service-Now/User','Umbrella'];
 public doughnutChartData:number[];
 public doughnutChartType:string = 'doughnut';
+
+public doughnutChartLabelsRaw:string[] = ['Reputation List', 'Behavioral Analysis', 'DGA', 'File Analysis','Laterl Movement','Endpoint Forensics'];
+public doughnutChartDataRaw:number[];
+public doughnutChartTypeRaw:string = 'doughnut';
+
+public doughnutChartLabelsType:string[] = ['Suspicious Communications', 'Suspicious Files', 'Lateral Movement', 'Vulnerable File Was Found']
+public doughnutChartDataType:number[];
+public doughnutChartTypeType:string = 'doughnut';
 // public doughnutFlag:boolean = false;
 
 // Alerts sources
@@ -26,6 +34,8 @@ private teknas:number;
 private snow:number;
 private umbrella:number;
 private allSysArray:number[] ;
+private rawTpsDoughnutArr:number[];
+
   // TPS
 private reputationList:number;
 private behavioral:number;
@@ -93,6 +103,8 @@ private vulnerableBinaries:number;
     this.allSysArray =  [this.tps,this.ziften,this.mcafee,this.teknas,this.snow,this.umbrella];
     this.createDoughnutForSource();
     this.createBarForRawTps();
+    this.createDoughnutForRawTps();
+    this.createChartsForType();
   // })
   }
 // bar cart
@@ -117,7 +129,16 @@ public barChartOptionsRAW:any = {
   public barChartLegendRAW:boolean = true;
  
   public barChartDataRAW:any[] ;
-
+// bar chart for alerts by Type
+  public barChartOptionsType:any = {
+    scaleShowVerticalLines: false,
+    responsive: true
+  };
+  public barChartLabelsType:string[] = ['Communications', 'Suspicious Files', 'Lateral', 'Vulnerable File'];
+  public barChartTypeType:string = 'bar';
+  public barChartLegendType:boolean = true;
+ 
+  public barChartDataType:any[] ;
   // submit = function(event){
   //   this.calcTps();
   //   this.calcZiften();
@@ -179,6 +200,21 @@ createBarForRawTps = function(){
   ];
  }
 
+ createDoughnutForRawTps = function(){
+   this.rawTpsDoughnutArr = [this.reputationList,this.behavioral,this.DGA,this.fileAnalysis,this.LM,this.EP];
+   this.doughnutChartDataRaw = this.rawTpsDoughnutArr;
+ }
+   createChartsForType = function(){
+   var files = this.suspiciousBinariesOT + this.fileAnalysis + this.newVulnerableFile
+   this.barChartDataType = [
+    {data: [this.suspiciousDestination, 0, 0, 0], label: 'Suspicious Communications'},
+    {data: [0, files, 0, 0,], label: 'Suspicious Files'},
+    {data: [0, 0, this.LM, 0], label: 'Laterel Movement'},
+    {data: [0, 0, 0, this.vulnerableFileWasFound], label: 'Vulnerable File Was Found'} 
+  ];
+    this.sourceDoughnutArr = [this.suspiciousDestination,files,this.LM,this.vulnerableFileWasFound];
+   this.doughnutChartDataType = this.sourceDoughnutArr;
+ }
 
 onChange(value) {
     if(value == "type"){
