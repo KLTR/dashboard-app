@@ -1,16 +1,15 @@
 'use strict';
 const mongoose = require('mongoose'),
-    Report = require('./../models/report'),
-    promise = require('promise');
+      Report   = require('./../models/report'),
+      promise  = require('promise');
 
 class Dashboard {
 
     enterNewReport(_mcafee, _teknas, _snow, _umbrella, _reputationList,
-        _behavioral, _DGA, _fileAnalysis, _LM, _EP,
-        _suspiciousDestination, _suspiciousBinariesOT,
-        _newSuspiciousBinary, _newVulnerableFile,
-        _vulnerableFileWasFound, _vulnerableBinaries) {
-        console.log("Enter new report entered in server.js");
+                    _behavioral, _DGA, _fileAnalysis, _LM, _EP,
+                    _suspiciousDestination, _suspiciousBinariesOT,
+                    _newSuspiciousBinary, _newVulnerableFile,
+                    _vulnerableFileWasFound, _vulnerableBinaries) {
         return new Promise((resolve, reject) => {
             var newReport = new Report({
                 mcafee: _mcafee,
@@ -48,7 +47,21 @@ class Dashboard {
                 (err, result) => {
                     if (err) reject(err);
                     else resolve(result);
-                })
+                });
+        });
+    }
+
+    getAllReports() {
+        return new Promise((resolve, reject) => {
+            var result = Report.find({}).select('date -_id');
+            resolve(result);
+        });
+    }
+
+    getLastReport() {
+        return new Promise((resolve, reject) => {
+            let result = Report.findOne({}).sort('-date');
+            resolve(result);
         })
     }
 }

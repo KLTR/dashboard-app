@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Chartservice} from '../../services/chartservice.service'
+import {Chartservice} from '../../services/chartservice.service';
 import {Router} from '@angular/router';
 
 @Component({ 
@@ -175,7 +175,9 @@ public barChartOptionsType:any = {
       this.vulnerableFileWasFound,
       this.vulnerableBinaries,
       this.umbrella
-    )  
+    ).subscribe( report => {
+      console.log("added new report");
+    });  
   }
   calcTps = function(){
     this.tps = this.reputationList + this.behavioral + this.DGA + this.fileAnalysis + this.LM + this.EP;

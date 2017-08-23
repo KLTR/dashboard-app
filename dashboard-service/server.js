@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('port', port);
 
 app.get('/', (req, res) => {
-    res.send("***Include API in service***");
+    res.sendFile(`${__dirname}/api.html`);
 });
 
 app.use(
@@ -57,6 +57,24 @@ app.post('/enterNewReport/', (req, res, next) => {
     })
 })
 
+app.get('/getAllReports', (req, res, next) => {
+  data.getAllReports().then((result, error) => {
+    res.status(200).json(result);
+  }, (error) => {
+    console.log(error);
+    next();
+  });
+});
+
+app.get('/getLastReport', (req, res, next) => {
+  data.getLastReport().then((result, error) => {
+    res.status(200).json(result);
+  }, (error) => {
+    console.log(error);
+    next();
+  });
+});
+
 //error 404 route
 app.all('*', (req, res) => {
     res.send(`error: route not found, global handler`);
@@ -65,4 +83,5 @@ app.all('*', (req, res) => {
 app.listen(port,
     () => {
         console.log(`listening on port ${port}`);
-    });
+});
+
