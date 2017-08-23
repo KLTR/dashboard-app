@@ -146,15 +146,16 @@ public barChartOptionsType:any = {
 
   submit = function(event){
     this.chartsFlag = true;
-    this.calcTps();
-    this.calcZiften();
-    this.createBarChart();
-    this.allSysArray =  [this.tps,this.ziften,this.mcafee,this.teknas,this.snow,this.umbrella];
-    this.createDoughnutForSource();
-    this.createBarForRawTps();
-    this.createDoughnutForRawTps();
-    this.createChartsForType();
-    this.createPieChartsForFindings();
+    // this.calcTps();
+    // this.calcZiften();
+    // this.createBarChart();
+    // this.allSysArray =  [this.tps,this.ziften,this.mcafee,this.teknas,this.snow,this.umbrella];
+    // this.createDoughnutForSource();
+    // this.createBarForRawTps();
+    // this.createDoughnutForRawTps();
+    // this.createChartsForType();
+    // this.createPieChartsForFindings();
+    
     this.sendDataToService();
 
   }
@@ -178,7 +179,10 @@ public barChartOptionsType:any = {
       this.umbrella
     ).subscribe( report => {
       console.log("added new report");
-      this.flashMessage.show("Report was successfully submitted", {cssClass: 'alert-success', timeout: 3000});
+      this.flashMessage.show("Report was successfully submitted, you are been redirected ...", {cssClass: 'alert-success', timeout: 3000});
+      setTimeout((router: Router) => {
+        this.router.navigate(['/user']);
+    }, 3500);  //3.5
     });  
   }
   calcTps = function(){
