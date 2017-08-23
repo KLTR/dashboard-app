@@ -4,8 +4,12 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class Chartservice {
-
-  constructor(private http: Http) { }
+  headers: Headers;
+  options: RequestOptions;
+  constructor(private http: Http) {
+    this.headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
+    this.options = new RequestOptions({headers: this.headers});
+  }
 
 getLastReport = function(){
   return this.http.get('http://localhost:3000/getLastReport')
@@ -35,30 +39,28 @@ sendReport = function(
   _vulnerableBinaries,
   _umbrella){
 
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/x-www-form-urlencoded ');
-  return this.http.post('http://localhost:3000/enterNewReport' , {reputationList:_reputationList})
-  // behavioral: _behavioral,
-  // DGA: _DGA,
-  // fileAnalysis: _fileAnalysis,
-  // LM: _LM,
-  // EP: _EP,
-  // mcafee: _mcafee,
-  // snow: _snow,
-  // teknas: _teknas,
-  // suspiciousDestination: _suspiciousDestination,
-  // suspiciousBinariesOT: _suspiciousBinariesOT,
-  // newSuspiciousBinary: _newSuspiciousBinary ,
-  // newVulnerableFile: _newVulnerableFile,
-  // vulnerableFileWasFound: _vulnerableFileWasFound,
-  // vulnerableBinaries: _vulnerableBinaries,
-  // umbrella: _umbrella},
 
+  return this.http.post('http://localhost:3000/enterNewReport' , {reputationList:_reputationList,
+   behavioral: _behavioral,
+   DGA: _DGA,
+   fileAnalysis: _fileAnalysis,
+   LM: _LM,
+   EP: _EP,
+   mcafee: _mcafee,
+   snow: _snow,
+   teknas: _teknas,
+   suspiciousDestination: _suspiciousDestination,
+   suspiciousBinariesOT: _suspiciousBinariesOT,
+   newSuspiciousBinary: _newSuspiciousBinary ,
+   newVulnerableFile: _newVulnerableFile,
+   vulnerableFileWasFound: _vulnerableFileWasFound,
+   vulnerableBinaries: _vulnerableBinaries,
+   umbrella: _umbrella})
   .map(function(res){
      res.json();
   });
 
 
-}
+ }
 
 }

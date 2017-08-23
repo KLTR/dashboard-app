@@ -57,6 +57,15 @@ app.post('/enterNewReport/', (req, res, next) => {
     })
 })
 
+app.get('/getAllReports', (req, res, next) => {
+  data.getAllReports().then((result, error) => {
+    res.status(200).json(result);
+  }, (error) => {
+    console.log(error);
+    next();
+  });
+});
+
 //error 404 route
 app.all('*', (req, res) => {
     res.send(`error: route not found, global handler`);

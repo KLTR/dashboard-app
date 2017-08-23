@@ -43,17 +43,21 @@ class Dashboard {
 
     getReportByDate(date) {
         return new Promise((resolve, reject) => {
-            Report.find({date: `${date}`}, 
-                (err, result) => {
-                    if (err) reject (err);
-                    else resolve (result);
-                })    
             Report.find({ date: `${date}` },
                 (err, result) => {
                     if (err) reject(err);
                     else resolve(result);
                 })
         })
+    }
+
+    getAllReports() {
+        return new Promise((resolve, reject) => {
+            Report.find({}).select('date -_id');
+        }, (err, result) => {
+            if (err) reject(err);
+            else resolve(result);
+        });
     }
 }
 
