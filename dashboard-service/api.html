@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <title>DashBoard API</title>
+    </head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="text-center"><span class="text-primary">DashBoard API</span></h1>
+        </div>
+
+            <div class="panel panel-primary">
+
+                    <div class="panel-heading"><h3>Get Report By Date:</h3></div>
+
+                    <div class="panel-body">
+                              This is a <b>GET</b> route. find report by the date<br><br>
+                              key: date<br>
+                              format: dd-mm-yy<br>
+                              values: string<br>
+                             <a href="https://localhost:3000/getReportByDate">
+                                https://localhost:3000/getReportByDate
+                            </a>
+                            <br>
+                    </div>
+
+                    <div class="panel-heading"><h3>Enter new report</h3></div>
+
+                    <div class="panel-body">
+                              This is a <b>POST</b> route. Enter a new report<br><br>
+                              key: {report data}<br>
+                              values: number<br>
+                             <a href="https://localhost:3000/enterNewReport">
+                                https://localhost:3000/enterNewReport
+                            </a>
+                            <br>
+                    </div>
+
+                    <div class="panel-heading"><h3>Get All Reports:</h3></div>
+
+                    <div class="panel-body">
+                              This is a <b>GET</b> route. Gets you all the reports so far<br><br>
+                              No Values!<br>
+                             <a href="https://localhost:3000/getAllReports">
+                                https://localhost:3000/getAllReports
+                            </a>
+                            <br>
+                    </div>
+
+                    <div class="panel-heading"><h3>Get Last Report:</h3></div>
+
+                    <div class="panel-body">
+                              This is a <b>GET</b> route. Gets the last report created<br><br>
+                              No Values!<br>
+                             <a href="https://localhost:3000/getLastReport">
+                                https://localhost:3000/getLastReport
+                            </a>
+                            <br>
+                    </div>
+          </div>
+    </div>
+</body>
+</html>
