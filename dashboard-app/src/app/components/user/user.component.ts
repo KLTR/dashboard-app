@@ -2,16 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import {Chartservice} from '../../services/chartservice.service'
 import {Router} from '@angular/router';
 
-@Component({ 
-  selector: 'app-admin-input',
-  templateUrl: './admin-input.component.html',
-  styleUrls: ['./admin-input.component.css']
+@Component({
+  selector: 'app-user',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.css']
 })
-export class AdminInputComponent implements OnInit {
-// flags
+export class UserComponent implements OnInit {
 private typeFlag;
 private sourceFlag;
 private rawTpsFlag;
+
 // Dougnut chart 
 public doughnutChartLabels:string[] = ['TPS', 'Ziften', 'McAfee', 'Teknas','Service-Now/User','Umbrella'];
 public doughnutChartData:number[];
@@ -35,7 +35,7 @@ private snow:number;
 private umbrella:number;
 private allSysArray:number[] ;
 private rawTpsDoughnutArr:number[];
-private sourceDoughnutArr:number[];
+
   // TPS
 private reputationList:number;
 private behavioral:number;
@@ -57,28 +57,57 @@ private vulnerableBinaries:number;
 // doughnut of all systems 
   constructor(
     private chartService: Chartservice,
-    private router: Router) { }
+    private router: Router,) { }
 
   ngOnInit() {
- this.reputationList = 0;
+    this.sourceFlag = true;
+ this.reputationList = 5;
  this.behavioral = 0;
  this.DGA = 0
- this.fileAnalysis = 0;
- this.LM = 0
- this.EP = 0
+ this.fileAnalysis = 5;
+ this.LM = 5
+ this.EP = 5
  this.mcafee = 0;
  this.snow = 0;
  this.teknas = 0
  this.suspiciousDestination = 0;
  this.suspiciousBinariesOT = 0;
- this.newSuspiciousBinary = 0 ;
+ this.newSuspiciousBinary = 5 ;
  this.newVulnerableFile = 0;
  this.vulnerableFileWasFound = 0;
  this.vulnerableBinaries = 0;
- this.umbrella = 0;
-  
+ this.umbrella = 5;
+ this.chartService.getReportByDate(5).subscribe(report=>{
+   console.log(report);
+ });
+  // this.chartService.getLastReport().subscribe(report =>{
+  //   this.reputationList = report.reputationList;
+  //   this.behavioral = report.behavioral
+  //   this.DGA = report.DGA
+  //   this.fileAnalysis = report.fileAnalysis
+  //   this.LM = report.LM
+  //   this.EP = report.EP
+  //   this.mcafee = report.mcafee
+  //   this.snow = report.snow
+  //   this.teknas = report.teknas
+  //   this.suspiciousDestination = report.suspiciousDestination
+  //   this.suspiciousBinariesOT = report.suspiciousBinariesOT
+  //   this.newSuspiciousBinary = report.newSuspiciousBinary
+  //   this.newVulnerableFile = report.newVulnerableFile
+  //   this.vulnerableBinaries = report.vulnerableBinaries
+  //   this.umbrella = report.umbrella;
+
+    this.calcTps();
+    this.calcZiften();
+    this.createBarChart();
+    this.allSysArray =  [this.tps,this.ziften,this.mcafee,this.teknas,this.snow,this.umbrella];
+    this.createDoughnutForSource();
+    this.createBarForRawTps();
+    this.createDoughnutForRawTps();
+    this.createChartsForType();
+  // })
   }
-// bar chart for alerts by source
+// bar cart
 public barChartOptions:any = {
     scaleShowVerticalLines: false,
     responsive: true
@@ -100,9 +129,8 @@ public barChartOptionsRAW:any = {
   public barChartLegendRAW:boolean = true;
  
   public barChartDataRAW:any[] ;
-
-  // bar chart for alerts by type
-public barChartOptionsType:any = {
+// bar chart for alerts by Type
+  public barChartOptionsType:any = {
     scaleShowVerticalLines: false,
     responsive: true
   };
@@ -111,42 +139,21 @@ public barChartOptionsType:any = {
   public barChartLegendType:boolean = true;
  
   public barChartDataType:any[] ;
+  // submit = function(event){
+  //   this.calcTps();
+  //   this.calcZiften();
+  //   this.createBarChart();
+  //   this.allSysArray =  [this.tps,this.ziften,this.mcafee,this.teknas,this.snow,this.umbrella];
+  //   this.createDoughnutForSource();
+  //   this.createBarForRawTps();
 
-  submit = function(event){
-    this.calcTps();
-    this.calcZiften();
-    this.createBarChart();
-    this.allSysArray =  [this.tps,this.ziften,this.mcafee,this.teknas,this.snow,this.umbrella];
-    this.createDoughnutForSource();
-    this.createBarForRawTps();
-    this.createDoughnutForRawTps();
-    this.createChartsForType();
-    this.sendDataToService();
 
-  }
-  sendDataToService(){
-    this.chartService.sendReport(
-      this.reputationList,
-      this.behavioral,
-      this.DGA,
-      this.fileAnalysis,
-      this.LM,
-      this.EP,
-      this.mcafee,
-      this.snow,
-      this.teknas,
-      this.suspiciousDestination,
-      this.suspiciousBinariesOT,
-      this.newSuspiciousBinary,
-      this.newVulnerableFile,
-      this.vulnerableFileWasFound,
-      this.vulnerableBinaries,
-      this.umbrella
-    )  
-  }
+  // }
+ 
   calcTps = function(){
     this.tps = this.reputationList + this.behavioral + this.DGA + this.fileAnalysis + this.LM + this.EP;
     this.tpsRawAlerts = [this.reputationList, this.behavioral, this.DGA, this.fileAnalysis, this.LM, this.EP];
+    console.log(this.tps);
   }
   calcZiften = function(){
     this.ziften = this.suspiciousDestination +  this.suspiciousBinariesOT + this.newSuspiciousBinary + this.newVulnerableFile + this.vulnerableBinaries
@@ -191,15 +198,13 @@ createBarForRawTps = function(){
     {data: [0, 0, 0, 0, 0, this.EP], label: 'Endpoint Forensics'},
  
   ];
-
  }
 
  createDoughnutForRawTps = function(){
    this.rawTpsDoughnutArr = [this.reputationList,this.behavioral,this.DGA,this.fileAnalysis,this.LM,this.EP];
    this.doughnutChartDataRaw = this.rawTpsDoughnutArr;
  }
-
- createChartsForType = function(){
+   createChartsForType = function(){
    var files = this.suspiciousBinariesOT + this.fileAnalysis + this.newVulnerableFile
    this.barChartDataType = [
     {data: [this.suspiciousDestination, 0, 0, 0], label: 'Suspicious Communications'},
@@ -210,7 +215,6 @@ createBarForRawTps = function(){
     this.sourceDoughnutArr = [this.suspiciousDestination,files,this.LM,this.vulnerableFileWasFound];
    this.doughnutChartDataType = this.sourceDoughnutArr;
  }
-
 
 onChange(value) {
     if(value == "type"){
@@ -226,12 +230,13 @@ onChange(value) {
       
     }
     else if(value == "rawTps"){
-    // this.createDoughnutForRawTps();
      this.rawTpsFlag = true;
      this.typeFlag = false;
      this.sourceFlag = false;
 
     }
 }
-  
+login(){
+this.router.navigate(['/admin']);
+}
 }
