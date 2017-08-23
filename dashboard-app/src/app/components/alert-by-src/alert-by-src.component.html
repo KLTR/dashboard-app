@@ -1,0 +1,25 @@
+<div class="container">
+  <h2 class="header">Security Alerts By Source </h2>
+  <div class="row charts">
+    <div class="col-lg-4 doughnut card">
+ <canvas baseChart
+              [data]="doughnutChartData"
+              [labels]="doughnutChartLabels"
+              [chartType]="doughnutChartType"
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)">
+            </canvas>
+    </div>
+            <div>
+              <div class="col-lg-7 baseChart card">
+                 <canvas baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [legend]="barChartLegend"
+            [chartType]="barChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"></canvas>
+  </div>
+            </div>
+    </div>

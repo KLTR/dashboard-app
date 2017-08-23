@@ -1,0 +1,25 @@
+{
+  "name": "dashboard-service",
+  "version": "1.0.0",
+  "description": "Service for local dashboard app",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deepHash/dashboard-service.git"
+  },
+  "author": "Roy Levi and Igal Tsesis",
+  "license": "ISC",
+    "bugs": {
+    "url": "https://github.com/deepHash/dashboard-service/issues"
+  },
+  "homepage": "https://github.com/deepHash/dashboard-service#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "mongoose": "^4.11.7",
+    "promise": "^8.0.1"
+  }
+}
