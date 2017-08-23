@@ -47,17 +47,22 @@ class Dashboard {
                 (err, result) => {
                     if (err) reject(err);
                     else resolve(result);
-                })
-        })
+                });
+        });
     }
 
     getAllReports() {
         return new Promise((resolve, reject) => {
-            Report.find({}).select('date -_id');
-        }, (err, result) => {
-            if (err) reject(err);
-            else resolve(result);
+            var result = Report.find({}).select('date -_id');
+            resolve(result);
         });
+    }
+
+    getLastReport() {
+        return new Promise((resolve, reject) => {
+            let result = Report.findOne({}).sort('-date');
+            resolve(result);
+        })
     }
 }
 
