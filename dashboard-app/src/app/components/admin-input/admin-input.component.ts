@@ -10,8 +10,10 @@ import {Router} from '@angular/router';
 export class AdminInputComponent implements OnInit {
 // flags
 private typeFlag;
-private sourceFlag;
+private sourceFlag = true;
 private rawTpsFlag;
+private findingsFlag;
+private chartsFlag = false;;
 // Dougnut chart 
 public doughnutChartLabels:string[] = ['TPS', 'Ziften', 'McAfee', 'Teknas','Service-Now/User','Umbrella'];
 public doughnutChartData:number[];
@@ -53,6 +55,27 @@ private newVulnerableFile:number;
 private vulnerableFileWasFound:number;
 private vulnerableBinaries:number;
 
+//Findings
+// Type:
+private adware:number;
+private virus:number;
+private mail:number;
+// Source
+private tpsFindings:number;
+private mcafeeFindings:number;
+private ziftenFindings:number;
+private userFindings:number;
+
+// findings pie charts:
+ public pieChartLabelsType:string[] = ['Adware/Unwanted Program', 'Virus', 'Malicious Emails'];
+ public pieChartDataType:number[] ;
+ public pieChartTypeType:string = 'pie';
+private pieChartDataTypeArr : number[];
+  public pieChartLabelsSrc:string[] = ['TPS', 'McAfee', 'Ziften', 'User'];
+ public pieChartDataSrc:number[] ;
+ public pieChartTypeSrc:string = 'pie';
+ private pieChartDataSrcArr: number[];
+
 // charts
 // doughnut of all systems 
   constructor(
@@ -76,6 +99,14 @@ private vulnerableBinaries:number;
  this.vulnerableFileWasFound = 0;
  this.vulnerableBinaries = 0;
  this.umbrella = 0;
+//  findings pie charts
+ this.tpsFindings = 0;
+ this.ziftenFindings = 0;
+ this.mcafeeFindings = 0;
+ this.userFindings = 0;
+ this.adware = 0;
+ this.virus = 0;
+ this.mail = 0;
   
   }
 // bar chart for alerts by source
@@ -113,6 +144,7 @@ public barChartOptionsType:any = {
   public barChartDataType:any[] ;
 
   submit = function(event){
+    this.chartsFlag = true;
     this.calcTps();
     this.calcZiften();
     this.createBarChart();
@@ -121,6 +153,7 @@ public barChartOptionsType:any = {
     this.createBarForRawTps();
     this.createDoughnutForRawTps();
     this.createChartsForType();
+    this.createPieChartsForFindings();
     this.sendDataToService();
 
   }
@@ -211,18 +244,40 @@ createBarForRawTps = function(){
    this.doughnutChartDataType = this.sourceDoughnutArr;
  }
 
+ createPieChartsForFindings = function(){
+  this.pieChartDataSrcArr = [this.tpsFindings,this.mcafeeFindings,this.ziftenFindings,this.userFindings];
+  this.pieChartDataTypeArr = [this.adware, this.virus, this.mail];
+  this.pieChartDataSrc = this.pieChartDataSrcArr;
+  this.pieChartDataType = this.pieChartDataTypeArr;
+ }
+
+preview(){
+  this.chartsFlag = true;
+   this.calcTps();
+    this.calcZiften();
+    this.createBarChart();
+    this.allSysArray =  [this.tps,this.ziften,this.mcafee,this.teknas,this.snow,this.umbrella];
+    this.createDoughnutForSource();
+    this.createBarForRawTps();
+    this.createDoughnutForRawTps();
+    this.createChartsForType();
+    this.createPieChartsForFindings();
+
+}
 
 onChange(value) {
     if(value == "type"){
       this.typeFlag = true;
       this.sourceFlag = false;
       this.rawTpsFlag = false;
+      this.findingsFlag= false;
     }
     else if(value == "source"){
       this.createBarChart();
       this.typeFlag = false;
       this.sourceFlag = true;
       this.rawTpsFlag = false;
+      this.findingsFlag= false;
       
     }
     else if(value == "rawTps"){
@@ -230,7 +285,14 @@ onChange(value) {
      this.rawTpsFlag = true;
      this.typeFlag = false;
      this.sourceFlag = false;
+     this.findingsFlag= false;
 
+    }
+    else if(value =="findings"){
+     this.rawTpsFlag = false;;
+     this.typeFlag = false;
+     this.sourceFlag = false;
+     this.findingsFlag= true;
     }
 }
   

@@ -12,12 +12,28 @@
 </div>
 
 <div class="container">
-    <label>Select Alerts Types :</label>
-    <select class="form-control" (change)="onChange($event.target.value)">
+    <div class="row">
+        <div class="col-lg-6">
+            <label>Select Alerts Types :</label>
+            <select class="form-control" (change)="onChange($event.target.value)">
     <option value="source">Alerts By Source</option>
     <option value="type">Alets By Type</option>
     <option value="rawTps">TPS Raw Alerts</option>
+    <option value="findings">Findings</option>
   </select>
+            <!--col  -->
+        </div>
+        <div class="col-lg-6">
+            <label>Select Report Date :</label>
+            <select [(ngModel)]="selectedDate" class="form-control" (change)="selectDate()">
+    <option *ngFor = "let date of dates"; value=date>{{date}}</option>
+   
+  </select>
+            <!--col  -->
+        </div>
+        <!--row  -->
+    </div>
+    <!--container  -->
 </div>
 
 <div class="container" *ngIf="rawTpsFlag">
