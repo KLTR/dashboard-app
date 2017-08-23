@@ -132,11 +132,11 @@
             <h2 class="header">Soc Findings</h2>
             <div class="col-md-5 card">
                 <h3>Findings(type)</h3>
-                <canvas baseChart [data]="pieChartDataType" [labels]="pieChartLabelsType" [chartType]="pieChartTypeType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                <canvas baseChart [data]="pieChartDataType" [labels]="pieChartLabelsType" [chartType]="pieChartTypeType"></canvas>
             </div>
             <div class="col-md-5 card">
                 <h3>Findings(Source)</h3>
-                <canvas baseChart [data]="pieChartDataSrc" [labels]="pieChartLabelsSrc" [chartType]="pieChartTypeSrc" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                <canvas baseChart [data]="pieChartDataSrc" [labels]="pieChartLabelsSrc" [chartType]="pieChartTypeSrc"></canvas>
                 <!-- base chart -->
             </div>
         </div>
@@ -147,45 +147,45 @@
 
             <h2 class="header">Raw Tps Alerts </h2>
             <div class="col-md-4  doughnut card">
-                <canvas baseChart [data]="doughnutChartDataRaw" [labels]="doughnutChartLabelsRaw" [chartType]="doughnutChartTypeRaw" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+                <canvas baseChart [data]="doughnutChartDataRaw" [labels]="doughnutChartLabelsRaw" [chartType]="doughnutChartTypeRaw" ">
             </canvas>
                 <!-- doughnut  -->
             </div>
-            <div class="col-md-7 baseChart card">
-                <canvas baseChart [datasets]="barChartDataRAW" [labels]="barChartLabelsRAW" [options]="barChartOptionsRAW" [legend]="barChartLegendRAW" [chartType]="barChartTypeRAW" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+            <div class="col-md-7 baseChart card ">
+                <canvas baseChart [datasets]="barChartDataRAW " [labels]="barChartLabelsRAW " [options]="barChartOptionsRAW " [legend]="barChartLegendRAW " [chartType]="barChartTypeRAW " (chartHover)="chartHovered($event) " (chartClick)="chartClicked($event) "></canvas>
                 <!-- base chart -->
             </div>
         </div>
     </div>
 
     <!-- Alerts By Type  -->
-    <div class="container" *ngIf="typeFlag">
-        <div class="row charts">
+    <div class="container " *ngIf="typeFlag ">
+        <div class="row charts ">
 
-            <h2 class="header">Security Alerts By Type </h2>
-            <div class="col-md-4  doughnut card">
-                <canvas baseChart [data]="doughnutChartDataType" [labels]="doughnutChartLabelsType" [chartType]="doughnutChartTypeType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+            <h2 class="header ">Security Alerts By Type </h2>
+            <div class="col-md-4 doughnut card ">
+                <canvas baseChart [data]="doughnutChartDataType " [labels]="doughnutChartLabelsType " [chartType]="doughnutChartTypeType ">
             </canvas>
                 <!-- doughnut  -->
             </div>
-            <div class="col-md-7 baseChart card">
-                <canvas baseChart [datasets]="barChartDataType" [labels]="barChartLabelsType" [options]="barChartOptionsType" [legend]="barChartLegendType" [chartType]="barChartTypeType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+            <div class="col-md-7 baseChart card ">
+                <canvas baseChart [datasets]="barChartDataType " [labels]="barChartLabelsType " [options]="barChartOptionsType " [legend]="barChartLegendType " [chartType]="barChartTypeType "></canvas>
                 <!-- base chart -->
             </div>
         </div>
     </div>
     <!--Alerts By Source -->
-    <div class="container" *ngIf="sourceFlag">
-        <div class="row charts">
+    <div class="container " *ngIf="sourceFlag ">
+        <div class="row charts ">
 
-            <h2 class="header">Security Alerts By Source </h2>
-            <div class="col-md-4  doughnut card">
-                <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+            <h2 class="header ">Security Alerts By Source </h2>
+            <div class="col-md-4 doughnut card ">
+                <canvas baseChart [data]="doughnutChartData " [labels]="doughnutChartLabels " [chartType]="doughnutChartType ">
             </canvas>
                 <!-- doughnut  -->
             </div>
-            <div class="col-md-7 baseChart card">
-                <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+            <div class="col-md-7 baseChart card ">
+                <canvas baseChart [datasets]="barChartData " [labels]="barChartLabels " [options]="barChartOptions " [legend]="barChartLegend " [chartType]="barChartType "></canvas>
                 <!-- base chart -->
             </div>
             <!--Row  -->
