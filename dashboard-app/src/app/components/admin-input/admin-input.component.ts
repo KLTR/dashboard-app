@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Chartservice} from '../../services/chartservice.service';
 import {Router} from '@angular/router';
-
+import {FlashMessagesService} from 'angular2-flash-messages'
 @Component({ 
   selector: 'app-admin-input',
   templateUrl: './admin-input.component.html',
@@ -80,7 +80,8 @@ private pieChartDataTypeArr : number[];
 // doughnut of all systems 
   constructor(
     private chartService: Chartservice,
-    private router: Router) { }
+    private router: Router,
+    private flashMessage: FlashMessagesService) { }
 
   ngOnInit() {
  this.reputationList = 0;
@@ -177,6 +178,7 @@ public barChartOptionsType:any = {
       this.umbrella
     ).subscribe( report => {
       console.log("added new report");
+      this.flashMessage.show("Report was successfully submitted", {cssClass: 'alert-success', timeout: 3000});
     });  
   }
   calcTps = function(){

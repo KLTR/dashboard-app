@@ -1,15 +1,15 @@
 'use strict';
 const mongoose = require('mongoose'),
-      Report   = require('./../models/report'),
-      promise  = require('promise');
+    Report = require('./../models/report'),
+    promise = require('promise');
 
 class Dashboard {
 
     enterNewReport(_mcafee, _teknas, _snow, _umbrella, _reputationList,
-                    _behavioral, _DGA, _fileAnalysis, _LM, _EP,
-                    _suspiciousDestination, _suspiciousBinariesOT,
-                    _newSuspiciousBinary, _newVulnerableFile,
-                    _vulnerableFileWasFound, _vulnerableBinaries) {
+        _behavioral, _DGA, _fileAnalysis, _LM, _EP,
+        _suspiciousDestination, _suspiciousBinariesOT,
+        _newSuspiciousBinary, _newVulnerableFile,
+        _vulnerableFileWasFound, _vulnerableBinaries) {
         return new Promise((resolve, reject) => {
             var newReport = new Report({
                 mcafee: _mcafee,
@@ -22,7 +22,7 @@ class Dashboard {
                 fileAnalysis: _fileAnalysis,
                 LM: _LM,
                 EP: _EP,
-                suspiciousdestination: _suspiciousDestination,
+                suspiciousDestination: _suspiciousDestination,
                 suspiciousBinariesOT: _suspiciousBinariesOT,
                 newSuspiciousBinary: _newSuspiciousBinary,
                 newVulnerableFile: _newVulnerableFile,

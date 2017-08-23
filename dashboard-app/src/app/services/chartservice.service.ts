@@ -15,6 +15,12 @@ getLastReport = function(){
   return this.http.get('http://localhost:3000/getLastReport')
       .map(res => res.json());
 }
+
+getAllReports = function(){
+  return this.http.get('http://localhost:3000/getAllReports')
+  .map(res => res.json());
+}
+
 getReportByDate = function(date){
   return this.http.get('http://localhost:3000/getReportByDate/'+"2017-08-21T12:31:52.301Z")
   .map(function(res){
