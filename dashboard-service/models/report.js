@@ -19,7 +19,13 @@ var mongoose = require('mongoose'),
         newSuspiciousBinary: Number,
         newVulnerableFile: Number,
         vulnerableBinaries: Number,
-        vulnerableFileWasFound: Number
+        vulnerableFileWasFound: Number,
+        tpsFindings: Number,
+        ziftenFindings: Number,
+        mcafeeFindings: Number,
+        adware: Number,
+        virus: Number,
+        mail: Number
     }, {collection: 'Report'});
 
     var Report = mongoose.model('Report', ReportSchema);

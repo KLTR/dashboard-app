@@ -8,11 +8,14 @@ import {Router} from '@angular/router';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
+//flags
 private typeFlag;
 private sourceFlag;
 private rawTpsFlag;
 private chartsFlag = false;
-private dates:String[];
+//dates
+private dates:string[];
+public selectedDate:string;
 // Dougnut chart 
 public doughnutChartLabels:string[] = ['TPS', 'Ziften', 'McAfee', 'Teknas','Service-Now/User','Umbrella'];
 public doughnutChartData:number[];
@@ -64,28 +67,10 @@ private vulnerableBinaries:number;
   
     this.chartService.getAllReports().subscribe(dates =>{
         this.dates = dates;
-      for(var i = 0 ; i < this.dates.length ; i++){
-        this.dates[i].slice(6);
-      }
-      console.log(this.dates);
     });
+    
     this.sourceFlag = true;
-//  this.reputationList = 5;
-//  this.behavioral = 0;
-//  this.DGA = 0
-//  this.fileAnalysis = 5;
-//  this.LM = 5
-//  this.EP = 5
-//  this.mcafee = 0;
-//  this.snow = 0;
-//  this.teknas = 0
-//  this.suspiciousDestination = 0;
-//  this.suspiciousBinariesOT = 0;
-//  this.newSuspiciousBinary = 5 ;
-//  this.newVulnerableFile = 0;
-//  this.vulnerableFileWasFound = 0;
-//  this.vulnerableBinaries = 0;
-//  this.umbrella = 5;
+
   this.chartService.getLastReport().subscribe(report =>{
     this.reputationList = report.reputationList;
     this.behavioral = report.behavioral
@@ -104,7 +89,7 @@ private vulnerableBinaries:number;
     this.vulnerableBinaries = report.vulnerableBinaries
     this.umbrella = report.umbrella;
     this.chartsFlag = true;
-     this.calcTps();
+    this.calcTps();
     this.calcZiften();
     this.createBarChart();
     this.allSysArray =  [this.tps,this.ziften,this.mcafee,this.teknas,this.snow,this.umbrella];
@@ -112,12 +97,9 @@ private vulnerableBinaries:number;
     this.createBarForRawTps();
     this.createDoughnutForRawTps();
     this.createChartsForType();
-    console.log(report);
+  //  console.log(report);
   });
 
-
-   
-  // })
   }
 // bar cart
 public barChartOptions:any = {
@@ -165,7 +147,6 @@ public barChartOptionsRAW:any = {
   calcTps = function(){
     this.tps = this.reputationList + this.behavioral + this.DGA + this.fileAnalysis + this.LM + this.EP;
     this.tpsRawAlerts = [this.reputationList, this.behavioral, this.DGA, this.fileAnalysis, this.LM, this.EP];
-    console.log(this.tps);
   }
   calcZiften = function(){
     this.ziften = this.suspiciousDestination +  this.suspiciousBinariesOT + this.newSuspiciousBinary + this.newVulnerableFile + this.vulnerableBinaries
@@ -228,6 +209,12 @@ createBarForRawTps = function(){
    this.doughnutChartDataType = this.sourceDoughnutArr;
  }
 
+ selectDate(){
+   this.chartService.getReportByDate(this.selectedDate).subscribe( report => {
+       console.log(report);
+   });
+ }
+
 onChange(value) {
     if(value == "type"){
       this.typeFlag = true;
@@ -248,7 +235,7 @@ onChange(value) {
 
     }
 }
-login(){
-this.router.navigate(['/admin']);
-}
+  login(){
+    this.router.navigate(['/admin']);
+  }
 }

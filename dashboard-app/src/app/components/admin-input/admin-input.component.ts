@@ -13,7 +13,7 @@ private typeFlag;
 private sourceFlag = true;
 private rawTpsFlag;
 private findingsFlag;
-private chartsFlag = false;;
+private chartsFlag = false;
 // Dougnut chart 
 public doughnutChartLabels:string[] = ['TPS', 'Ziften', 'McAfee', 'Teknas','Service-Now/User','Umbrella'];
 public doughnutChartData:number[];
@@ -176,7 +176,14 @@ public barChartOptionsType:any = {
       this.newVulnerableFile,
       this.vulnerableFileWasFound,
       this.vulnerableBinaries,
-      this.umbrella
+      this.umbrella,
+      this.tpsFindings,
+      this.ziftenFindings,
+      this.mcafeeFindings,
+      this.userFindings,
+      this.adware,
+      this.virus,
+      this.mail
     ).subscribe( report => {
       console.log("added new report");
       this.flashMessage.show("Report was successfully submitted, you are been redirected ...", {cssClass: 'alert-success', timeout: 3000});

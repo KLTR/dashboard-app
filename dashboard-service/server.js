@@ -49,7 +49,13 @@ app.post('/enterNewReport/', (req, res, next) => {
         req.body.newSuspiciousBinary,
         req.body.newVulnerableFile,
         req.body.vulnerableFileWasFound,
-        req.body.vulnerableBinaries).then((result) => {
+        req.body.vulnerableBinaries,
+        req.body.tpsFindings,
+        req.body.ziftenFindings,
+        req.body.mcafeeFindings,
+        req.body.adware,
+        req.body.virus,
+        req.body.mail).then((result) => {
         result.length === 0 ? next() : res.status(200).json(result);
     }, (error) => {
         console.log(error);

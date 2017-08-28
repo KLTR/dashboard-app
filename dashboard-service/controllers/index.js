@@ -9,7 +9,9 @@ class Dashboard {
         _behavioral, _DGA, _fileAnalysis, _LM, _EP,
         _suspiciousDestination, _suspiciousBinariesOT,
         _newSuspiciousBinary, _newVulnerableFile,
-        _vulnerableFileWasFound, _vulnerableBinaries) {
+        _vulnerableFileWasFound, _vulnerableBinaries,
+        _tpsFindings, _ziftenFindings, _mcafeeFindings,
+        _adware, _virus, _mail) {
         return new Promise((resolve, reject) => {
             var newReport = new Report({
                 mcafee: _mcafee,
@@ -27,7 +29,13 @@ class Dashboard {
                 newSuspiciousBinary: _newSuspiciousBinary,
                 newVulnerableFile: _newVulnerableFile,
                 vulnerableBinaries: _vulnerableBinaries,
-                vulnerableFileWasFound: _vulnerableFileWasFound
+                vulnerableFileWasFound: _vulnerableFileWasFound,
+                tpsFindings: _tpsFindings,
+                ziftenFindings: _ziftenFindings,
+                mcafeeFindings: _mcafeeFindings,
+                adware: _adware,
+                virus: _virus,
+                mail: _mail
             });
             newReport.save(
                 (err) => {
@@ -53,8 +61,10 @@ class Dashboard {
 
     getAllReports() {
         return new Promise((resolve, reject) => {
-            var result = Report.find({}).select('date -_id');
-            resolve(result);
+            // var result = Report.find({}).select('date -_id');
+            Report.distinct('date', (err, result) => {
+                resolve(result);
+            });
         });
     }
 
