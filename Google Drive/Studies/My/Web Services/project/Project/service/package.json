@@ -1,0 +1,25 @@
+{
+  "name": "player",
+  "version": "1.0.0",
+  "description": "web service for Kerem player project",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deepHash/KeremPlayer.git"
+  },
+  "author": "Yotam Akshota and Igal Tsesis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/deepHash/KeremPlayer/issues"
+  },
+  "homepage": "https://github.com/deepHash/KeremPlayer#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "mongoose": "^4.10.6",
+    "promise": "^7.1.1"
+  }
+}
