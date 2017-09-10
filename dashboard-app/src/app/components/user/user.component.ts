@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
+private logoUrl:string;
 //flags
 private typeFlag;
 private sourceFlag;
@@ -64,7 +65,7 @@ private vulnerableBinaries:number;
     private router: Router,) { }
 
   ngOnInit() {
-  
+  this.logoUrl = '../../../assets/images/Verint_logo.png'
     this.chartService.getAllReports().subscribe(dates =>{
         this.dates = dates;
     });
@@ -236,6 +237,6 @@ onChange(value) {
     }
 }
   login(){
-    this.router.navigate(['/admin']);
+    this.router.navigate(['/login']);
   }
 }

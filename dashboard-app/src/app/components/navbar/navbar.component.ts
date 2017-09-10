@@ -7,14 +7,18 @@ import {FlashMessagesService} from 'angular2-flash-messages';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
+logo : String;
   constructor(
     private router: Router,
     private flashMessage: FlashMessagesService
   ) { }
 
   ngOnInit() {
+  this.logo =  '../../../assets/images/Verint_logo.png';
   }
 
+  logout(){
+    this.router.navigate(['/user'])
+  }
 
 }

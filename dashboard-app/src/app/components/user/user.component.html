@@ -4,8 +4,11 @@
         <div class="row">
             <div class="col-lg-8">
                 <h1>Weekly Reports Dashboard</h1>
-                <button class="btn btn-primary">Click to view reports</button>
-                <button (click)="login()" class="btn btn-danger">Admin Login</button>
+                <!-- <button class="btn btn-primary">Click to view reports</button> -->
+                <button (click)="login()" class="btn btn-primary">Admin Login</button>
+            </div>
+              <div class="col-lg-4">
+                <img [src]="logoUrl">
             </div>
         </div>
     </div>
@@ -14,21 +17,41 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-6">
-            <label>Select Alerts Types :</label>
+            <div class="panel panel-info">
+  <div class="panel-heading">
+    <h3 class="panel-title">Select Alerts Types</h3>
+  </div>
+  <div class="panel-body">
+             <select class="form-control" (change)="onChange($event.target.value)">
+    <option value="source">Alerts By Source</option>
+    <option value="type">Alerts By Type</option>
+    <option value="rawTps">TPS Raw Alerts</option>
+    <option value="findings">Findings</option>
+  </select>
+  </div>
+</div>
+            <!-- <label>Select Alerts Types :</label>
             <select class="form-control" (change)="onChange($event.target.value)">
     <option value="source">Alerts By Source</option>
     <option value="type">Alets By Type</option>
     <option value="rawTps">TPS Raw Alerts</option>
     <option value="findings">Findings</option>
-  </select>
+  </select> -->
             <!--col  -->
         </div>
         <div class="col-lg-6">
-            <label>Select Report Date :</label>
-            <select [(ngModel)]="selectedDate" class="form-control" (change)="selectDate()">
+            <div class="panel panel-info">
+  <div class="panel-heading">
+    <h3 class="panel-title">Select Report Date :</h3>
+  </div>
+  <div class="panel-body">
+  <select [(ngModel)]="selectedDate" class="form-control" (change)="selectDate()">
     <option *ngFor = "let date of dates">{{date}}</option>
    
   </select>
+  </div>
+</div>
+     
             <!--col  -->
         </div>
         <!--row  -->
@@ -36,7 +59,7 @@
     <!--container  -->
 </div>
 
-<div class="container chartsContainer" *ngIf="chartsFlag">
+<div class="container chartsContainer " *ngIf="chartsFlag">
 
     <div class="container" *ngIf="rawTpsFlag">
         <div class="row charts">
