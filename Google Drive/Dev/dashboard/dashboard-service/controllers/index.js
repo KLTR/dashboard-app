@@ -61,9 +61,8 @@ class Dashboard {
 
     getAllReports() {
         return new Promise((resolve, reject) => {
-            // var result = Report.find({}).select('date -_id');
             Report.distinct('date', (err, result) => {
-                resolve(result);
+                resolve(result.reverse());
             });
         });
     }
