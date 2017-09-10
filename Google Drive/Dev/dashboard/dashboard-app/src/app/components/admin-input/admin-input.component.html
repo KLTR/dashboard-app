@@ -1,0 +1,194 @@
+<!-- Admin Section  -->
+<div class="container">
+    <form (ngSubmit)="submit(event)">
+        <div class="row">
+            <!--All systems  -->
+            <h2 class="text-header">All System</h2>
+            <div class="form-group col-md-3">
+                <label>McAfee</label>
+                <input name="mcafee" [(ngModel)]="mcafee" type="number" class="form-control">
+            </div>
+            <div class="form-group col-md-3">
+                <label>Teknas</label>
+                <input name="teknas" [(ngModel)]="teknas" type="number" class="form-control">
+            </div>
+            <div class="form-group col-md-3">
+                <label>Service Now / User</label>
+                <input name="snow" [(ngModel)]="snow" type="number" class="form-control">
+            </div>
+            <div class="form-group col-md-3">
+                <label>Umbrella</label>
+                <input name="umbrella" [(ngModel)]="umbrella" type="number" class="form-control">
+            </div>
+            <!--TPS  -->
+            <h2 class="text-header">TPS</h2>
+            <div class="form-group col-md-4">
+                <label>C&C (Reputation list)</label>
+                <input name="reputationList" [(ngModel)]="reputationList" type="number" class="form-control">
+            </div>
+            <div class="form-group col-md-4">
+                <label>C&C (Behavioral Analysis)</label>
+                <input name="behavioral" [(ngModel)]="behavioral" type="number" class="form-control">
+            </div>
+            <div class="form-group col-md-4">
+                <label>C&C (DGA)</label>
+                <input name="DGA" [(ngModel)]="DGA" type="number" class="form-control">
+            </div>
+            <div class="form-group col-md-4">
+                <label>File Analysis</label>
+                <input name="fileAnalysis" [(ngModel)]="fileAnalysis" type="number" class="form-control">
+            </div>
+            <div class="form-group col-md-4">
+                <label>Lateral Movement</label>
+                <input name="LM" [(ngModel)]="LM" type="number" class="form-control">
+            </div>
+            <div class="form-group col-md-4">
+                <label>Endpoint Forensics</label>
+                <input name="EP" [(ngModel)]="EP" type="number" class="form-control">
+            </div>
+            <!--Ziften  -->
+            <h2 class="text-header">Ziften</h2>
+            <div class="form-group col-md-4">
+                <label>New Connection to a Suspicious Destination</label>
+                <input name="suspiciousDestination" [(ngModel)]="suspiciousDestination" type="number" class="form-control">
+            </div>
+            <div class="form-group col-md-4">
+                <label>Suspicious binaries over time</label>
+                <input name="suspiciousBinariesOT" [(ngModel)]="suspiciousBinariesOT" type="number" class="form-control">
+            </div>
+            <div class="form-group col-md-4">
+                <label>New Suspicious Binary has been Executed</label>
+                <input name="newSuspiciousBinary" [(ngModel)]="newSuspiciousBinary" type="number" class="form-control">
+            </div>
+            <div class="form-group col-md-4">
+                <label>New Vulnerable File was Executed</label>
+                <input name="newVulnerableFile" [(ngModel)]="newVulnerableFile" type="number" class="form-control">
+            </div>
+            <div class="form-group col-md-4">
+                <label>Vulnerable File was Found</label>
+                <input name="vulnerableFileWasFound" [(ngModel)]="vulnerableFileWasFound" type="number" class="form-control">
+            </div>
+            <div class="form-group col-md-4">
+                <label>vulnerable binaries</label>
+                <input name="vulnerableBinaries" [(ngModel)]="vulnerableBinaries" type="number" class="form-control">
+            </div>
+            <!--findings (Type) -->
+            <h2 class="text-header">Findings (Type)</h2>
+            <div class="form-group col-md-4">
+                <label>Adware/Unwanted Program</label>
+                <input name="adware" [(ngModel)]="adware" type="number" class="form-control">
+            </div>
+            <div class="form-group col-md-4">
+                <label>Virus</label>
+                <input name="virus" [(ngModel)]="virus" type="number" class="form-control">
+            </div>
+            <div class="form-group col-md-4">
+                <label>Malicious Emails</label>
+                <input name="mail" [(ngModel)]="mail" type="number" class="form-control">
+            </div>
+
+            <h2 class="text-header">Findings (Source)</h2>
+            <div class="form-group col-md-3">
+                <label>Tps</label>
+                <input name="tpsFindings" [(ngModel)]="tpsFindings" type="number" class="form-control">
+            </div>
+            <div class="form-group col-md-3">
+                <label>McAfee</label>
+                <input name="mcafeeFindings" [(ngModel)]="mcafeeFindings" type="number" class="form-control">
+            </div>
+            <div class="form-group col-md-3">
+                <label>Ziften</label>
+                <input name="ziftenFindings" [(ngModel)]="ziftenFindings" type="number" class="form-control">
+            </div>
+            <div class="form-group col-md-3">
+                <label>User</label>
+                <input name="userFindings" [(ngModel)]="userFindings" type="number" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <button type="button" (click)="preview()" class="btn btn-primary">Preview</button>
+                <button type="submit" class="btn btn-danger">Submit</button>
+            </div>
+            <!--row  -->
+        </div>
+        <!--form  -->
+    </form>
+
+    <!--container  -->
+</div>
+<div class="container">
+    <label>Select Alerts Types :</label>
+    <select class="form-control" (change)="onChange($event.target.value)">
+    <option value="source">Alerts By Source</option>
+    <option value="type">Alets By Type</option>
+    <option value="rawTps">TPS Raw Alerts</option>
+    <option value="findings">Findings</option>
+  </select>
+</div>
+
+<div class="container chartsCointaner" *ngIf="chartsFlag">
+    <div class="container" *ngIf="findingsFlag">
+        <div class="row charts">
+
+            <h2 class="header">Soc Findings</h2>
+            <div class="col-md-5 card">
+                <h3>Findings(type)</h3>
+                <canvas baseChart [data]="pieChartDataType" [labels]="pieChartLabelsType" [chartType]="pieChartTypeType"></canvas>
+            </div>
+            <div class="col-md-5 card">
+                <h3>Findings(Source)</h3>
+                <canvas baseChart [data]="pieChartDataSrc" [labels]="pieChartLabelsSrc" [chartType]="pieChartTypeSrc"></canvas>
+                <!-- base chart -->
+            </div>
+        </div>
+    </div>
+
+    <div class="container" *ngIf="rawTpsFlag">
+        <div class="row charts">
+
+            <h2 class="header">Raw Tps Alerts </h2>
+            <div class="col-md-4  doughnut card">
+                <canvas baseChart [data]="doughnutChartDataRaw" [labels]="doughnutChartLabelsRaw" [chartType]="doughnutChartTypeRaw"></canvas>
+                <!-- doughnut  -->
+            </div>
+            <div class="col-md-7 baseChart card ">
+                <canvas baseChart [datasets]="barChartDataRAW " [labels]="barChartLabelsRAW " [options]="barChartOptionsRAW " [legend]="barChartLegendRAW " [chartType]="barChartTypeRAW " (chartHover)="chartHovered($event) " (chartClick)="chartClicked($event) "></canvas>
+                <!-- base chart -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Alerts By Type  -->
+    <div class="container " *ngIf="typeFlag ">
+        <div class="row charts ">
+
+            <h2 class="header ">Security Alerts By Type </h2>
+            <div class="col-md-4 doughnut card ">
+                <canvas baseChart [data]="doughnutChartDataType " [labels]="doughnutChartLabelsType " [chartType]="doughnutChartTypeType ">
+            </canvas>
+                <!-- doughnut  -->
+            </div>
+            <div class="col-md-7 baseChart card ">
+                <canvas baseChart [datasets]="barChartDataType " [labels]="barChartLabelsType " [options]="barChartOptionsType " [legend]="barChartLegendType " [chartType]="barChartTypeType "></canvas>
+                <!-- base chart -->
+            </div>
+        </div>
+    </div>
+    <!--Alerts By Source -->
+    <div class="container " *ngIf="sourceFlag ">
+        <div class="row charts ">
+
+            <h2 class="header ">Security Alerts By Source </h2>
+            <div class="col-md-4 doughnut card ">
+                <canvas baseChart [data]="doughnutChartData " [labels]="doughnutChartLabels " [chartType]="doughnutChartType ">
+            </canvas>
+                <!-- doughnut  -->
+            </div>
+            <div class="col-md-7 baseChart card ">
+                <canvas baseChart [datasets]="barChartData " [labels]="barChartLabels " [options]="barChartOptions " [legend]="barChartLegend " [chartType]="barChartType "></canvas>
+                <!-- base chart -->
+            </div>
+            <!--Row  -->
+        </div>
+        <!--container  -->
+    </div>
+</div>
