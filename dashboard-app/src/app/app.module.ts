@@ -11,6 +11,7 @@ import {Chartservice} from './services/chartservice.service'
 import {routes} from './app.routes';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FlashMessagesModule } from 'angular2-flash-messages';
+import { LoginComponent } from './components/src/app/components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
     AdminInputComponent,
     UserComponent,
     NavbarComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
