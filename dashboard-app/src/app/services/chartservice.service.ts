@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 export class Chartservice {
   headers: Headers;
   options: RequestOptions;
-  APIUrl: string = "http://localhost:3000";
+  APIUrl: string = "https://vdashboard.herokuapp.com";
   constructor(private http: Http) {
     this.headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
     this.options = new RequestOptions({headers: this.headers});

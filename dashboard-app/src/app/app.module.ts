@@ -8,7 +8,7 @@ import { AlertBySrcComponent } from './components/alert-by-src/alert-by-src.comp
 import { AdminInputComponent } from './components/admin-input/admin-input.component';
 import { LoginComponent } from './components/login/login.component';
 import { UserComponent } from './components/user/user.component';
-import {Chartservice} from './services/chartservice.service'
+import {Chartservice} from './services/chartservice.service';
 import {routes} from './app.routes';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FlashMessagesModule } from 'angular2-flash-messages';
@@ -34,4 +34,4 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
   providers: [Chartservice],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

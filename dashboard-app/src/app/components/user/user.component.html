@@ -60,7 +60,21 @@
 </div>
 
 <div class="container chartsContainer " *ngIf="chartsFlag">
+<div class="container" *ngIf="findingsFlag">
+        <div class="row charts">
 
+            <h2 class="header">Soc Findings</h2>
+            <div class="col-md-5 card">
+                <h3>Findings(type)</h3>
+                <canvas baseChart [data]="pieChartDataType" [labels]="pieChartLabelsType" [chartType]="pieChartTypeType"></canvas>
+            </div>
+            <div class="col-md-5 card">
+                <h3>Findings(Source)</h3>
+                <canvas baseChart [data]="pieChartDataSrc" [labels]="pieChartLabelsSrc" [chartType]="pieChartTypeSrc"></canvas>
+                <!-- base chart -->
+            </div>
+        </div>
+    </div>
     <div class="container" *ngIf="rawTpsFlag">
         <div class="row charts">
 

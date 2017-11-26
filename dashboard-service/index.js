@@ -1,6 +1,6 @@
 /**
 *@Project: Soc Dashboard
-*@Authors: Roy Levi
+*@Authors: Roy Levy
 *          Igal Tsesis
 */
 require('./database');
