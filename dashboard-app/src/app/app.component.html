@@ -1,4 +1,11 @@
+<head>
+<link id="theme" rel="stylesheet" type="text/css" href="https://bootswatch.com/3/superhero/bootstrap.min.css">
+</head>
 <div class="container-fluid">
+    <button id='theme-btn' class="btn btn-primary" (click)='changeTheme()'>Current Theme : {{color}}</button>
     <flash-messages></flash-messages>
     <router-outlet></router-outlet>
 </div>
+<!-- <app-footer></app-footer> -->
+
+

@@ -28,6 +28,22 @@ getReportByDate = function(date){
     return res.json();
   });
 }
+getFindingIncident(label, key, date){
+  console.log(label + ' ' + date)
+  if(key == 'source'){
+    return this.http.get(`$this.APIUrl}/getIncidentBySource/${label}/${date}`)
+    .map(function(res){
+      return res.json();
+    });
+  }
+  else if(key == 'type'){
+    return this.http.get(`$this.APIUrl}/getIncidentByType/${label}/${date}`)
+    .map(function(res){
+      return res.json();
+    });
+  }
+}
+
 sendReport = function(
   _reputationList,
   _behavioral,

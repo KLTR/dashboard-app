@@ -1,9 +1,20 @@
+<!-- <div class='loader-ring'>
+    <div class='loader-ring-light'></div>
+    <div class='loader-ring-track'></div>
+  </div>   -->
+  <div class="wrapper-loader">
+    <div class="rubik-loader">
+        <h2 class="loader-header">Loading...</h2>
+    </div>
+   
+  </div>
 <!-- Admin Section  -->
+<div class="container user-wrap"  >
 <div class="container">
     <div class="jumbotron">
         <div class="row">
             <div class="col-lg-8">
-                <h1>Weekly Reports Dashboard</h1>
+                <h1>Security Operations Center</h1>
                 <!-- <button class="btn btn-primary">Click to view reports</button> -->
                 <button (click)="login()" class="btn btn-primary">Admin Login</button>
             </div>
@@ -13,64 +24,69 @@
         </div>
     </div>
 </div>
-
+<div class="container trending">
+    <h2>Trending</h2>
+    <p>For the selected week there were :</p>    
+    <section id="container" >
+      <ul class="text-center">
+        <li > {{virus}} Viruses  </li>
+        <li> {{mail}} Malicious emails  </li>
+        <li> {{tps}} TPS Alerts </li>
+        <li> {{adware}} Adwares </li>
+        <li> {{files}} Suspicious Files </li>
+        <li> {{vulnerableFileWasFound}} Vulnerable Files </li>        
+      </ul>
+    </section>
+</div>
 <div class="container">
     <div class="row">
         <div class="col-lg-6">
-            <div class="panel panel-info">
-  <div class="panel-heading">
-    <h3 class="panel-title">Select Alerts Types</h3>
-  </div>
-  <div class="panel-body">
-             <select class="form-control" (change)="onChange($event.target.value)">
-    <option value="source">Alerts By Source</option>
-    <option value="type">Alerts By Type</option>
-    <option value="rawTps">TPS Raw Alerts</option>
-    <option value="findings">Findings</option>
-  </select>
-  </div>
-</div>
-            <!-- <label>Select Alerts Types :</label>
-            <select class="form-control" (change)="onChange($event.target.value)">
-    <option value="source">Alerts By Source</option>
-    <option value="type">Alets By Type</option>
-    <option value="rawTps">TPS Raw Alerts</option>
-    <option value="findings">Findings</option>
-  </select> -->
-            <!--col  -->
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Select Alerts Types</h3>
+                </div>
+                <div class="panel-body">
+                 <select class="form-control" (change)="onChange($event.target.value)">
+                <option value="source">Alerts By Source</option>
+                <option value="type">Alerts By Type</option>
+                <option value="rawTps">TPS Raw Alerts</option>
+                <option value="findings">Findings</option>
+                </select>
+            </div>
+           </div>
         </div>
         <div class="col-lg-6">
-            <div class="panel panel-info">
-  <div class="panel-heading">
-    <h3 class="panel-title">Select Report Date :</h3>
-  </div>
-  <div class="panel-body">
-  <select [(ngModel)]="selectedDate" class="form-control" (change)="selectDate()">
-    <option *ngFor = "let date of dates">{{date}}</option>
-   
-  </select>
-  </div>
-</div>
-     
-            <!--col  -->
+            <div class="panel panel-primary">
+            <div class="panel-heading">
+             <h3 class="panel-title">Select Report Date :</h3>
+            </div>
+            <div class="panel-body">
+             <select [(ngModel)]="selectedDate" class="form-control" (change)="selectDate()">
+             <option *ngFor = "let date of dates">{{date}}</option>
+            </select>
         </div>
-        <!--row  -->
+        </div>
+        </div>
     </div>
-    <!--container  -->
 </div>
 
-<div class="container chartsContainer " *ngIf="chartsFlag">
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<app-incident></app-incident>
+</div>
+
+<div class="container chartsContainer" *ngIf="chartsFlag">
+
 <div class="container" *ngIf="findingsFlag">
         <div class="row charts">
-
-            <h2 class="header">Soc Findings</h2>
-            <div class="col-md-5 card">
-                <h3>Findings(type)</h3>
-                <canvas baseChart [data]="pieChartDataType" [labels]="pieChartLabelsType" [chartType]="pieChartTypeType"></canvas>
+            <h2 class="header">SOC Findings</h2>
+            <div class="col-md-5 card finding ">
+                <h3>Findings(Type)</h3>
+                <canvas (chartClick)="chartClicked($event,'type')" data-toggle="modal" data-target=".bd-example-modal-lg" baseChart [data]="pieChartDataType" [labels]="pieChartLabelsType" [chartType]="pieChartTypeType"></canvas>
             </div>
-            <div class="col-md-5 card">
+
+            <div class="col-md-5 card finding ">
                 <h3>Findings(Source)</h3>
-                <canvas baseChart [data]="pieChartDataSrc" [labels]="pieChartLabelsSrc" [chartType]="pieChartTypeSrc"></canvas>
+                <canvas baseChart (chartClick)="chartClicked($event,'source')" data-toggle="modal" data-target=".bd-example-modal-lg" [data]="pieChartDataSrc" [labels]="pieChartLabelsSrc" [chartType]="pieChartTypeSrc"></canvas>
                 <!-- base chart -->
             </div>
         </div>
@@ -80,8 +96,7 @@
 
             <h2 class="header">Raw Tps Alerts </h2>
             <div class="col-md-4  doughnut card">
-                <canvas baseChart [data]="doughnutChartDataRaw" [labels]="doughnutChartLabelsRaw" [chartType]="doughnutChartTypeRaw">
-            </canvas>
+                <canvas   baseChart [data]="doughnutChartDataRaw" [labels]="doughnutChartLabelsRaw" [chartType]="doughnutChartTypeRaw"></canvas>
                 <!-- doughnut  -->
             </div>
             <div class="col-md-7 baseChart card">
@@ -90,7 +105,6 @@
             </div>
         </div>
     </div>
-
     <!-- Alerts By Type  -->
     <div class="container" *ngIf="typeFlag">
         <div class="row charts">
@@ -122,8 +136,10 @@
                 <!-- base chart -->
             </div>
             <!--Row  -->
-
         </div>
         <!--container  -->
     </div>
 </div>
+</div>
+
+

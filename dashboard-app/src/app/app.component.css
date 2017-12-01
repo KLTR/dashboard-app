@@ -1,0 +1,12 @@
+#theme-btn{
+    position: fixed;
+    top: 15rem;
+    right: 15px;
+    opacity: 0.5;
+    
+}
+
+#theme-btn:hover{
+
+    opacity: 1;
+}

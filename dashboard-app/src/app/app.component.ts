@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component,Inject } from '@angular/core';
+
+  import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,21 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+  sandstone = '../assets/styles and themes/sandstone.css';
+  superhero = '../assets/styles and themes/superhero.css';
+  color = 'Superhero'
+  constructor(@Inject(DOCUMENT) private document ){
+
+  }
+  changeTheme(){
+    if(this.color == 'Superhero'){
+      this.document.getElementById('theme').setAttribute('href', this.sandstone);
+      this.color = 'Sandstone';    
+      
+    }else{ //color == 'sandstone'
+      this.document.getElementById('theme').setAttribute('href', this.superhero);
+      this.color='Superhero'    
+      
+    }
+  }
 }
