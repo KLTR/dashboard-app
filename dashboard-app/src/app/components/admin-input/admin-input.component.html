@@ -3,6 +3,9 @@
 <div class="container">
     <form (ngSubmit)="submit(event)">
         <div class="row">
+            <h2>Job Id</h2>
+            <label>Splunk Job Id</label>
+            <input  required name="jobId" [(ngModel)]="jobId" type="text" class="form-control">
             <!--All systems  -->
             <h2 class="text-header">All System</h2>
             <div class="form-group col-md-3">

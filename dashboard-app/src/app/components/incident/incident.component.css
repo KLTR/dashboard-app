@@ -13,7 +13,7 @@
 }
 .incident img{
         vertical-align: middle;
-        width: 7.5rem;
+        width: 9.5rem;
         padding: 10px;
 }
 
@@ -22,12 +22,12 @@
     font-size:1.5rem;
 }
 .incident .label{
-    font-size:1rem;
+    font-size:1.5rem;
     position: absolute;
     right: 1rem;
 }
 .badge{
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     vertical-align: 0;
 }
 .img-analyst{
@@ -37,4 +37,7 @@
 .status{
     display: flex;
     flex-direction: column;
+}
+.label-default{
+    background-color:black
 }

@@ -8,6 +8,7 @@ import {FlashMessagesService} from 'angular2-flash-messages'
   styleUrls: ['./admin-input.component.css']
 })
 export class AdminInputComponent implements OnInit {
+public jobId:string;
 // flags
 private typeFlag;
 private sourceFlag = true;

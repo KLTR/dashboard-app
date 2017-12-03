@@ -3,22 +3,25 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Incidents Created This Week<span class="badge bg-primary">3</span></h4>
+        <h4 class="modal-title">Incidents Created This Week<span class="badge bg-primary">{{incidentIndex}}</span></h4>
       </div>
-      <div class="modal-body">
-        <div class="incident">
+      <div *ngIf = 'snowIncidents?.length > 0' class="modal-body">
+        <div *ngFor='let inc of snowIncidents' class="incident">
           <div class="img-box">
-              <a class="btn btn-info" target="blank" href="https://verint.service-now.com/nav_to.do?uri=task.do%3Fsys_id%3D452be120db6a8b04e893f9261d9619ce"><img src="../../../assets/images/snow-logo2.png"></a> 
+              <a class="btn btn-default" target="blank" href="https://verint.service-now.com/nav_to.do?uri=task.do%3Fsys_id%3D452be120db6a8b04e893f9261d9619ce">
+                <img src="../../../assets/images/snow-logo2.png"></a> 
+                <span *ngIf = 'inc?.num'>{{inc.num}}</span>
           </div>
           <div class="text-box">
-              <span>
-                  Alert Type: Virus , Alert Source: TPS
+              <span *ngIf = 'inc?.date'>
+                  {{inc.date}}
                 </span>
-                <span class="label label-success">Resolved</span>
+                <span *ngIf = 'inc?.desc'>{{inc.desc}}</span>
+                <span *ngIf = 'inc?.state' class="label {{inc.label}}">{{inc.state}}</span>
           </div>
           <hr>               
         </div>
-        <div class="incident">
+        <!-- <div class="incident">
             <div class="img-box">
                 <a class="btn btn-info" target="blank" href="https://verint.service-now.com/nav_to.do?uri=task.do%3Fsys_id%3D452be120db6a8b04e893f9261d9619ce"><img src="../../../assets/images/snow-logo2.png"></a> 
             </div>
@@ -29,10 +32,9 @@
                   <span class="label label-warning">In Progress</span>                  
                   
             </div>
-                <!-- <img class="img-analyst" src="../../../assets/images/roy.levy@verint.com.jpg">                       -->
             <hr>               
-          </div>
-          <div class="incident">
+          </div> -->
+          <!-- <div class="incident">
               <div class="img-box">
                   <a class="btn btn-info" target="blank" href="https://verint.service-now.com/nav_to.do?uri=task.do%3Fsys_id%3D452be120db6a8b04e893f9261d9619ce"><img src="../../../assets/images/snow-logo2.png"></a> 
               </div>
@@ -43,7 +45,7 @@
                     <span class="label label-info">New</span>                  
               </div>
               <hr>               
-            </div>          
+            </div>           -->
       </div>
     </div>
   </div>

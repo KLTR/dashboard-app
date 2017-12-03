@@ -119,7 +119,9 @@ public barChartLegendType = true;
 
 public barChartDataType: any[] ;
 
-
+private snowIncidents: any[];
+private reults = 'results.result[0].field[58].value[0].text'
+private fieldIncNum = ''
 // charts
 // doughnut of all systems
   constructor(
@@ -135,10 +137,7 @@ public barChartDataType: any[] ;
         this.dates = dates;
         this.selectedDate = dates[0];       
     });
-    this.splunkService.getLastWeekSnow().subscribe(splunkSnowIncidents =>{
-      this.splunkSnowIncidents = splunkSnowIncidents;
-      console.log(this.splunkSnowIncidents);
-    })
+
     this.sourceFlag = true;
 
   this.chartService.getLastReport().subscribe(report => {
