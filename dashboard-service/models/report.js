@@ -2,8 +2,9 @@ var mongoose = require('mongoose'),
     schema   = mongoose.Schema,
     dateFormat = require('dateformat'),
     now = new Date(),
+
     ReportSchema = new schema({
-        date: {type: String, required: true, default: dateFormat(now, "d-m-yy")},
+        date: {type: String, required: true, default: dateFormat(now, "mmmm dS, yyyy")},
         mcafee: Number,
         teknas: Number,
         snow: Number,

@@ -74,7 +74,7 @@ app.get('/getAllReports', (req, res, next) => {
 
 app.get('/getLastReport', (req, res, next) => {
   data.getLastReport().then((result, error) => {
-    res.status(200).json(result);
+    res.status(200).json(result[0]);
   }, (error) => {
     console.log(error);
     next();
