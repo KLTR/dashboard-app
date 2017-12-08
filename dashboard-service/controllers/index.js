@@ -70,7 +70,7 @@ class Dashboard {
 
     getLastReport() {
         return new Promise((resolve, reject) => {
-            let result = Report.findOne({}).sort('-date');
+            let result = Report.find().limit(1).sort({$natural:-1});
             resolve(result);
         })
     }
