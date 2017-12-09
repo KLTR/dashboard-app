@@ -1,11 +1,9 @@
-<head>
-<link id="theme" rel="stylesheet" type="text/css" href="/assets/themes/superhero.css">
-</head>
+
 <div class="container-fluid">
-    <button id='theme-btn' class="btn btn-primary" (click)='changeTheme()'><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAC+SURBVEhL3ZVRCsIwEER7DG+keCEPZ2MxtQleo3oPNTCBEHaWbG0/9MFAd7MzSz5Cu//B3eLR+fh0Y3yZ9PGcfTgghtOP4SEGNCnMiOHIxnYhhiOZLEIMp3mwYvGCXLf2UHKYsbWHklMP9j6ehuG+Q/k99YLV30UeQLn+uygDU11+W6C+dK20ebMFNXlwqRDDkUwWIYajGbSedCaiGbSedCaiGbSedCZSG6xCDGfzH1D5LmwK8+U67RHz83TdG4wdMPomNyI3AAAAAElFTkSuQmCC">
-    {{color}}</button>
-    <flash-messages></flash-messages>
+    <app-navbar></app-navbar>
+    <flash-messages></flash-messages>    
     <router-outlet></router-outlet>
+
 </div>
 <!-- <app-footer></app-footer> -->
 

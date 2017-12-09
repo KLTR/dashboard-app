@@ -1,0 +1,99 @@
+<div class="container-fluid chartsContainer" *ngIf="isChartsShown" >
+
+<div class="container-fluid date-selector">
+    <div class="row">
+        <!-- <div class="col-lg-6 col-md-5 col-sm-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Select Alerts Types</h3>
+                </div>
+                <div class="panel-body">
+                 <select class="form-control" (change)="onChange($event.target.value)">
+                <option value="source">Alerts By Source</option>
+                <option value="type">Alerts By Type</option>
+                <option value="rawTps">TPS Raw Alerts</option>
+                <option value="findings">Findings</option>
+                </select>
+            </div>
+           </div>
+        </div> -->
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="panel panel-primary">
+            <div class="panel-heading">
+             <h3 class="panel-title">Select Report Date :</h3>
+            </div>
+            <div class="panel-body">
+             <select [(ngModel)]="selectedDate" class="form-control" (change)="selectDate()">
+             <option *ngFor = "let date of dates">{{date}}</option>
+            </select>
+        </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container" *ngIf="findingsFlag">
+<div class="row charts">
+<h2 class="header">SOC Findings</h2>
+<div class="col-md-5 card finding ">
+    <h3>Findings(Type)</h3>
+    <canvas (chartClick)="chartClicked($event,'type')" data-toggle="modal" data-target=".bd-example-modal-lg" baseChart [data]="pieChartDataType" [labels]="pieChartLabelsType" [chartType]="pieChartTypeType"></canvas>
+</div>
+
+<div class="col-md-5 card finding ">
+    <h3>Findings(Source)</h3>
+    <canvas baseChart (chartClick)="chartClicked($event,'source')" data-toggle="modal" data-target=".bd-example-modal-lg" [data]="pieChartDataSrc" [labels]="pieChartLabelsSrc" [chartType]="pieChartTypeSrc"></canvas>
+    <!-- base chart -->
+</div>
+</div>
+</div>
+<div class="container" *ngIf="rawTpsFlag">
+<div class="row charts">
+
+<h2 class="header">Raw Tps Alerts </h2>
+<div class="col-md-4  doughnut card">
+    <canvas   baseChart [data]="doughnutChartDataRaw" [labels]="doughnutChartLabelsRaw" [chartType]="doughnutChartTypeRaw"></canvas>
+    <!-- doughnut  -->
+</div>
+<div class="col-md-7 baseChart card">
+    <canvas baseChart [datasets]="barChartDataRAW" [labels]="barChartLabelsRAW" [options]="barChartOptionsRAW" [legend]="barChartLegendRAW" [chartType]="barChartTypeRAW"></canvas>
+    <!-- base chart -->
+</div>
+</div>
+</div>
+<!-- Alerts By Type  -->
+<div class="container" *ngIf="typeFlag">
+<div class="row charts">
+
+<h2 class="header">Security Alerts By Type </h2>
+<div class="col-md-4  doughnut card">
+    <canvas baseChart [data]="doughnutChartDataType" [labels]="doughnutChartLabelsType" [chartType]="doughnutChartTypeType">
+</canvas>
+    <!-- doughnut  -->
+</div>
+<div class="col-md-7 baseChart card">
+    <canvas baseChart [datasets]="barChartDataType" [labels]="barChartLabelsType" [options]="barChartOptionsType" [legend]="barChartLegendType" [chartType]="barChartTypeType"></canvas>
+    <!-- base chart -->
+</div>
+</div>
+</div>
+<!--Alerts By Source -->
+<div class="container" *ngIf="sourceFlag">
+<div class="row charts">
+
+<h2 class="header">Security Alerts By Source </h2>
+<div class="col-md-4  doughnut card">
+    <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType">
+</canvas>
+    <!-- doughnut  -->
+</div>
+<div class="col-md-7 baseChart card">
+    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType"></canvas>
+    <!-- base chart -->
+</div>
+<!--Row  -->
+</div>
+<!--container  -->
+</div>
+</div>

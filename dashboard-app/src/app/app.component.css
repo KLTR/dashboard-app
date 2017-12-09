@@ -1,7 +1,7 @@
 #theme-btn{
     position: absolute;
-    top: 15rem;
-    right: 15px;
+    top: 2rem;
+    left: 7rem;
     opacity: 0.5;
     
 }
@@ -9,4 +9,27 @@
 #theme-btn:hover{
 
     opacity: 1;
+}
+flash-messages{
+    margin-top: 50px;
+    z-index: 2;
+    height: 150px;
+}
+#grayOutDiv
+{
+    background-color: #333;
+    opacity: 0.7;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    z-index: 9999;
+}
+
+.flash-message
+{
+    z-index: 10000;
+    position: relative;
 }

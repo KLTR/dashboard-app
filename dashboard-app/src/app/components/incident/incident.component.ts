@@ -15,7 +15,7 @@ export class IncidentComponent implements OnInit {
   ngOnInit() {
     this.splunkService.getLastWeekSnow()
     .subscribe(snowIncidents =>{
-      console.log(snowIncidents.results)
+      // console.log(snowIncidents.results)
       this.snowIncidents = new Array<incident>();
       for(var i = 0 ; i < snowIncidents.results.result.length ; i ++){
         this.setSnowIncidents(snowIncidents,i);
@@ -83,7 +83,7 @@ export class IncidentComponent implements OnInit {
         }
       }
     this.snowIncidents[this.incidentIndex] = new incident(incNum,createdDate, state,desc);
-        console.log(this.snowIncidents[this.incidentIndex]);    
+        // console.log(this.snowIncidents[this.incidentIndex]);    
     this.incidentIndex++;
   }
   

@@ -28,6 +28,7 @@ login(){
   if(this.username == this.default_username && this.password == this.default_password ){
     this.isLogged = true;
      this.flashMessage.show("Success ! You are being redirected ..", {cssClass: 'alert-success', timeout: 3000});
+     this.flashMessage.grayOut(true);
       setTimeout((router: Router) => {
         this.router.navigate(['/admin']);
     }, 1500); 

@@ -10,3 +10,12 @@ img:hover{
     right: 21%;
     top: 35px;
 }
+.fa{
+    margin: 5px;
+}
+.navbar-fixed-top{
+    z-index: 1;
+}
+a:hover{
+    cursor: pointer;
+}
