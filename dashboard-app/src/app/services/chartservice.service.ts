@@ -13,6 +13,11 @@ export class Chartservice {
     this.options = new RequestOptions({headers: this.headers});
   }
 
+getFindings = function(){
+  return this.http.get(`${this.APIUrl}/getFindings`)
+  .map(res => res.json());
+}
+
 getLastReport = function(){
   return this.http.get(`${this.APIUrl}/getLastReport`)
       .map(res => res.json());

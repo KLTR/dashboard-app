@@ -15,7 +15,7 @@ export class IncidentComponent implements OnInit {
   ngOnInit() {
     this.splunkService.getLastWeekSnow()
     .subscribe(snowIncidents =>{
-      console.log(snowIncidents.results)
+      // console.log(snowIncidents.results)
       this.snowIncidents = new Array<incident>();
       for(var i = 0 ; i < snowIncidents.results.result.length ; i ++){
         this.setSnowIncidents(snowIncidents,i);
@@ -40,7 +40,6 @@ export class IncidentComponent implements OnInit {
   }
   setSnowIncidents(incidents,index){
     if(incidents.results.result[index].field.length != 149){
-      console.log('this is not an incident : ' + incidents.results.result[index])
       return;
     }
     let state;
@@ -77,14 +76,15 @@ export class IncidentComponent implements OnInit {
       state = 'Canceled';
     }
     if(incNum && createdDate){
+      // **! Check for duplicates - might be better way !**
       for(var j = 0 ; j < this.incidentIndex ; j++){
         if(this.snowIncidents[j].num == incNum){
           return;
         }
       }
-    this.snowIncidents[this.incidentIndex] = new incident(incNum,createdDate[0].slice(0,10), state,desc);
+    this.snowIncidents[this.incidentIndex] = new incident(incNum,createdDate, state,desc);
+        // console.log(this.snowIncidents[this.incidentIndex]);    
     this.incidentIndex++;
-    // console.log(this.snowIncidents[index] + ' ' + index);    
   }
   
 }
@@ -102,13 +102,12 @@ class incident {
     this.num = 'Unavailable'
   }
   if(date){
-    this.date = date;
+    this.date = date[0].slice(0,10);
   }else{
     this.date = 'Unavailable'
   }
   if(state){
     this.state = state;
-    console.log(state);
     if(state == 'New'){
       this.label = 'label-info'
     }

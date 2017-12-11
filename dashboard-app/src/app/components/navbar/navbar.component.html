@@ -1,13 +1,33 @@
-<nav class="navbar navbar-default">
-  <div class="container">
-    <div class="navbar-header">
-        <a href='#'><img  [src]='logo'></a>
+<head>
+    <link id="theme" rel="stylesheet" type="text/css" href="/assets/themes/superhero.css">
+    </head>
+
+<nav id="navbar" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Dash</a>
+      </div>
+  
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+        <ul class="nav navbar-nav">
+            <li><a (click)='login()'><i class="fa fa-sign-in fa-lg" aria-hidden="true"></i>Admin Login</a></li>            
+            <li><a (click)='login()'><i class="fa fa-user-o fa-lg" aria-hidden="true"></i>Analyst Login</a></li>       
+            <li><a (click)='showCharts()' ><i class="fa fa-bar-chart fa-lg" aria-hidden="true"></i>Charts</a></li>       
+            <li><a (click)='showTrending()'><i class="fa fa-table fa-lg" aria-hidden="true"></i>Trending</a></li>       
+            
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+              <li>
+                <a id='theme-btn'(click)='changeTheme()'>
+                <i class="fa fa-circle-o-notch fa-lg" aria-hidden="true"></i>Change Theme</a>
+              </li>
+            </ul>
+      </div>
     </div>
-    <div class="collapse navbar-collapse">
-        <button (click) = 'logout()' class="btn btn-default  navbar-right">Logout</button>
-    </div>
-  </div>
-</nav>
-      <!-- <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Link</a></li>
-      </ul> -->
+  </nav>

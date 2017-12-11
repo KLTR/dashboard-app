@@ -1,0 +1,59 @@
+
+.system-labels{
+    position: absolute;
+    left: 2rem;
+    list-style: none;
+    text-align: center;
+}
+.system-labels li{
+    font-weight: 900;
+    margin-top: 6px;
+    height: 27px;
+    font-weight: 900;
+}
+.label{
+    position: absolute;
+    left: 0px;
+    font-size: 12px;
+    height: 105%;
+    width: 60px;
+    top: 0;
+    padding-top: 10px;
+}
+
+td{
+    position: relative;
+}
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td{
+    padding: 8px;
+    text-align: center;
+    font-size:14px;
+}
+.trending{
+    padding: 25px;
+    
+}
+section#container {
+  overflow: hidden;
+  border: solid 3px #325D88;
+  margin: -5px auto;
+  padding: 10px 20px;
+  height: 205px;
+
+}
+section#container ul {
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+section#container ul li {
+  list-style: none;
+  height: 45px;
+  margin: 15px 0;
+  border-bottom: solid 1px #325D88;
+  padding-bottom: 10px;
+  width: 100%;
+}
+canvas{
+    background-color: white;
+}

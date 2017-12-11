@@ -13,3 +13,20 @@ html{
 body{
     background-color: #F8F5F0
 }
+.jumbotron{
+    margin-top: 8rem;
+}
+.alert{
+    padding: 21px;
+    margin-bottom: 21px;
+    border: 1px solid transparent;
+    border-radius: 0;
+    position: absolute;
+    width: 100vw;
+    left: 0;
+    z-index: 5;
+}
+#navbar .nav>li>a {
+    font-size: 14px;
+
+}

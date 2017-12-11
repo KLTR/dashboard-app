@@ -16,6 +16,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { IncidentComponent } from './components/incident/incident.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { TrendingComponent } from './components/trending/trending.component';
+import { ChartsComponent } from './components/charts/charts.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { FooterComponent } from './components/footer/footer.component';
     LoginComponent,
     IncidentComponent,
     FooterComponent,
+    TrendingComponent,
+    ChartsComponent,
   ],
   imports: [
     BrowserModule,
