@@ -85,6 +85,9 @@ private pieChartDataTypeArr : number[];
     private flashMessage: FlashMessagesService) { }
 
   ngOnInit() {
+    // JOBID
+ this.jobId = '';
+
  this.reputationList = 0;
  this.behavioral = 0;
  this.DGA = 0
@@ -162,6 +165,7 @@ public barChartOptionsType:any = {
   }
   sendDataToService(){
     this.chartService.sendReport(
+      this.jobId,      
       this.reputationList,
       this.behavioral,
       this.DGA,
@@ -184,7 +188,7 @@ public barChartOptionsType:any = {
       this.userFindings,
       this.adware,
       this.virus,
-      this.mail
+      this.mail,
     ).subscribe( report => {
       console.log("added new report");
       this.flashMessage.show("Report was successfully submitted, you are been redirected ...", {cssClass: 'alert-success', timeout: 3000});

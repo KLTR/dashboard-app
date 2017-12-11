@@ -1,11 +1,11 @@
 <div  class="wrapper container-fluid">
     <h1>Trending</h1>
-    <div *ngIf='findings' class="row">
+    <div class="row">
         <div class="col-md-6">
           <div style="display: block;">
           <canvas baseChart width="800" height="400"
-                      [datasets]="lineChartData"
-                      [labels]="lineChartLabels"
+                      [datasets]="lineChartDataBySource"
+                      [labels]="lineChartLabelsBySource"
                       [options]="lineChartOptions"
                       [colors]="lineChartColors"
                       [legend]="lineChartLegend"
@@ -19,19 +19,18 @@
             <table class="table table-responsive table-condensed table-striped table-hover ">
                 <thead>
                   <tr>
-                    <th *ngFor="let label of lineChartLabels">{{label}}</th>
+                    <th *ngFor="let label of lineChartLabelsBySource">{{label}}</th>
                   </tr>
                 </thead>
                 <tbody>
                   <!-- <ul class="system-labels">
                     <li class="badge active" *ngFor="let label of lineChartSystemLabels">{{label}}</li>
                   </ul> -->
-                      <tr *ngFor="let d of lineChartData;">
-                          <ng-container *ngFor="let label of lineChartLabels; let j=index">
+                      <tr *ngFor="let d of lineChartDataBySource;">
+                          <ng-container *ngFor="let label of lineChartLabelsBySource; let j=index">
                             <td><span class="label label-default" *ngIf="j==0;">{{d.label}}</span>{{d.data[j]}} </td>
                           </ng-container>
                         </tr>
-
                 </tbody>
               </table> 
               <h2>Trending</h2>

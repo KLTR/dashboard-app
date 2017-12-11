@@ -8,12 +8,13 @@ import {TrendingComponent} from './components/trending/trending.component';
 import {ChartsComponent} from './components/charts/charts.component';
 
 export const router: Routes = [
-    {path : '', redirectTo: 'user', pathMatch: 'full'},
+    {path : '', redirectTo: 'home', pathMatch: 'full'},
+    {path : 'user', redirectTo: 'home', pathMatch: 'full'},    
     {path: 'admin', component: AdminInputComponent},
     {path: 'analyst', component: AdminInputComponent},
     {path: 'trending', component: TrendingComponent},    
     {path: 'charts', component: ChartsComponent},    
-    {path: 'user', component: UserComponent},
+    {path: 'home', component: UserComponent},
     {path: 'login', component: LoginComponent}
 
 ];
