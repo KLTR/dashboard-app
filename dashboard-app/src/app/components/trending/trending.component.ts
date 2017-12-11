@@ -9,11 +9,13 @@ declare var $ :any;
   styleUrls: ['./trending.component.css']
 })
 export class TrendingComponent implements OnInit {
-findings : [any];
+findingsBySource : [any];
+findingsByType : [any];
 dates  = new Array(); //labels
 tpsFindings = new Array(); 
 ziftenFindings = new Array();
 mcafeeFindings =  new Array();
+userFindings = new Array();
 vulnerableFileWasFound: number;
 newVulnerableFile: number;
 files: number;
@@ -25,18 +27,34 @@ sysLabelIndex = 0;
   constructor(private chartService:Chartservice) { }
 
   ngOnInit() {
-    this.chartService.getFindings().subscribe(findings => {
-      this.findings = findings;
+    this.chartService.getFindingsBySource().subscribe(findings => {
+      this.findingsBySource = findings;
+      console.log(this.findingsBySource);
+      console.log()
       // dates + values
-      for(let i = 0; i < this.findings.length ; i++){
-        this.dates[i] = this.findings[i].date
-        this.tpsFindings[i] = this.findings[i].tpsFindings;
-        this.ziftenFindings[i] = this.findings[i].ziftenFindings;
-        this.mcafeeFindings[i] = this.findings[i].mcafeeFindings;
-        this.lineChartLabels = this.dates;
+      for(let i = 0; i < this.findingsBySource.length ; i++){
+        this.dates[i] = this.findingsBySource[i].date
+        this.tpsFindings[i] = this.findingsBySource[i].tpsFindings;
+        this.ziftenFindings[i] = this.findingsBySource[i].ziftenFindings;
+        this.mcafeeFindings[i] = this.findingsBySource[i].mcafeeFindings;
+        this.lineChartLabelsBySource = this.dates;
       }
 
     });
+    // this.chartService.getFindingsByType().subscribe(findings => {
+    //   this.findingsByType = findings;
+    //   console.log(this.findingsByType);
+      
+    //   // dates + values
+    //   for(let i = 0; i < this.findingsByType.length ; i++){
+    //     this.dates[i] = this.findingsByType[i].date
+    //     this.tpsFindings[i] = this.findingsByType[i].adware;
+    //     this.ziftenFindings[i] = this.findingsByType[i].virus;
+    //     this.mcafeeFindings[i] = this.findingsByType[i].mail;
+    //     this.lineChartLabelsType = this.dates;
+    //   }
+
+    // });
     this.chartService.getLastReport().subscribe(report => {
 
       this.vulnerableFileWasFound = report.vulnerableFileWasFound;
@@ -59,15 +77,27 @@ getSysLabels(){
   }
 }
 
-// lineChart
-public lineChartData:Array<any> = [
+// lineChart source
+public lineChartDataBySource:Array<any> = [
   {data: this.tpsFindings, label: 'Tps'},
   {data: this.mcafeeFindings, label: 'Mcafee'},  
   {data: this.ziftenFindings, label: 'Ziften'},
+  {data: this.userFindings, label: 'User'}
 ];
-public lineChartLabels ;
+public lineChartLabelsBySource;
 public lineChartSystemLabels: Array<any> = [
   'Tps','Ziften','Mcafee'
+]
+
+// lineChart Type
+public lineChartDataType:Array<any> = [
+  {data: this.tpsFindings, label: 'Adware'},
+  {data: this.mcafeeFindings, label: 'Virus'},  
+  {data: this.ziftenFindings, label: 'Malicious Mail'},
+];
+public lineChartLabelsType;
+public lineChartSystemLabelsType: Array<any> = [
+  'Adware','Virus','Malicious Mail'
 ]
 public lineChartOptions:any = {
   responsive: true
@@ -101,18 +131,7 @@ public lineChartColors:Array<any> = [
 public lineChartLegend:boolean = true;
 public lineChartType:string = 'line';
 
-public randomize():void {
-  let _lineChartData:Array<any> = new Array(this.lineChartData.length);
-  // runs on labels
-  for (let i = 0; i < this.lineChartData.length; i++) {
-    _lineChartData[i] = {data: new Array(this.lineChartData[i].data.length), label: this.lineChartData[i].label};
-    // change numbers
-    for (let j = 0; j < this.lineChartData[i].data.length; j++) {
-      _lineChartData[i].data[j] = Math.floor((Math.random() * 100) + 1);
-    }
-  }
-  this.lineChartData = _lineChartData;
-}
+
 
 // events
 public chartClicked(e:any):void {

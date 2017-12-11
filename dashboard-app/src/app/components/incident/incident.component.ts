@@ -15,11 +15,12 @@ export class IncidentComponent implements OnInit {
   ngOnInit() {
     this.splunkService.getLastWeekSnow()
     .subscribe(snowIncidents =>{
-      // console.log(snowIncidents.results)
+      console.log(snowIncidents.results);
       this.snowIncidents = new Array<incident>();
       for(var i = 0 ; i < snowIncidents.results.result.length ; i ++){
         this.setSnowIncidents(snowIncidents,i);
       }
+
     })
 
     
@@ -47,12 +48,15 @@ export class IncidentComponent implements OnInit {
     let createdDate;
     let stateNum;
     let desc;
+    let sys_id;
     // If one of the results is not an **incident**, it will throw err.
     try {
      incNum = incidents.results.result[index].field[58].value[0].text[0];
      createdDate  = incidents.results.result[index].field[81].value[0].text;
-    stateNum = incidents.results.result[index].field[77].value[0].text[0];
-      desc = incidents.results.result[index].field[70].value[0].text[0];
+     sys_id = incidents.results.result[index].field[84].value[0].text[0];
+    
+     stateNum = incidents.results.result[index].field[77].value[0].text[0];
+     desc = incidents.results.result[index].field[70].value[0].text[0];
     } catch(err){
       // One of the fields is undefined.
       return ;
@@ -82,7 +86,7 @@ export class IncidentComponent implements OnInit {
           return;
         }
       }
-    this.snowIncidents[this.incidentIndex] = new incident(incNum,createdDate, state,desc);
+    this.snowIncidents[this.incidentIndex] = new incident(incNum,createdDate, state,desc,sys_id);
         // console.log(this.snowIncidents[this.incidentIndex]);    
     this.incidentIndex++;
   }
@@ -94,8 +98,15 @@ class incident {
   date: any;
   state: any;
   desc: any;
+  sys_id:any; //not sending to DB on post request.
+  link:any;
   label = 'label-default';
-  constructor(num,date,state,desc) {
+  // Not yet set.
+  type:any;
+  source:any;
+  // 
+  constructor(num,date,state,desc,sys_id) {
+  this.link = `https://verint.service-now.com/nav_to.do?uri=%2Fincident.do%3Fsys_id%3D${sys_id}%26sysparm_stack%3D%26sysparm_view%3D`;
   if(num){
     this.num = num;
   }else{

@@ -13,11 +13,14 @@ export class Chartservice {
     this.options = new RequestOptions({headers: this.headers});
   }
 
-getFindings = function(){
-  return this.http.get(`${this.APIUrl}/getFindings`)
+getFindingsBySource = function(){
+  return this.http.get(`${this.APIUrl}/getFindingsBySource`)
   .map(res => res.json());
 }
-
+getFindingsByType = function(){
+  return this.http.get(`${this.APIUrl}/getFindingsByType`)
+  .map(res => res.json());
+}
 getLastReport = function(){
   return this.http.get(`${this.APIUrl}/getLastReport`)
       .map(res => res.json());
@@ -51,6 +54,7 @@ getFindingIncident(label, key, date){
 }
 
 sendReport = function(
+  _jobId,
   _reputationList,
   _behavioral,
   _DGA,
@@ -73,8 +77,11 @@ sendReport = function(
   _userFindings,
   _adware,
   _virus,
-  _mail){
-  return this.http.post(`${this.APIUrl}/enterNewReport` , {reputationList:_reputationList,
+  _mail,
+  ){
+  return this.http.post(`${this.APIUrl}/enterNewReport` , {
+   jobId: _jobId,
+   reputationList:_reputationList,
    behavioral: _behavioral,
    DGA: _DGA,
    fileAnalysis: _fileAnalysis,
@@ -96,7 +103,8 @@ sendReport = function(
    userFindings: _userFindings,
    adware: _adware,
    virus: _virus,
-   mail: _mail})
+   mail: _mail,
+  })
   .map(function(res){
      res.json();
   });

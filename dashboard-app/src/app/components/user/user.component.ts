@@ -38,7 +38,6 @@ private isTrendingShown = false;
   }
 
   ngAfterViewInit() {
-    console.log('Like what you see ? Contact us : Roy.Levy@verint.com, Igal.Tsesis@verint.com')
     function rotator() {
         $('.user-wrap').show();
         $('.wrapper-loader').hide();

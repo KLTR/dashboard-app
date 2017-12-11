@@ -23,7 +23,7 @@ color = 'Superhero'
   }
 
   logout(){
-    this.router.navigate(['/user'])
+    this.router.navigate(['/home'])
   }
   login(){
     this.router.navigate(['/login']);

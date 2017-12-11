@@ -8,6 +8,9 @@ import {SplunkService} from '../../services/splunk.service';
 })
 export class ChartsComponent implements OnInit {
 
+  // jobID
+  private jobId: string;
+
   private splunkSnowIncidents: [any];
   private logoUrl: string;
   // flags
@@ -138,29 +141,35 @@ export class ChartsComponent implements OnInit {
       this.sourceFlag = true;
   
     this.chartService.getLastReport().subscribe(report => {
-      this.reputationList = report.reputationList;
-      this.behavioral = report.behavioral;
-      this.DGA = report.DGA;
-      this.fileAnalysis = report.fileAnalysis;
-      this.LM = report.LM;
-      this.EP = report.EP;
+      // jobID
+      this.jobId = report.jobId;
+      // Findings by source
+      this.tpsFindings = report.tpsFindings;
+      this.mcafeeFindings = report.mcafeeFindings;
+      this.ziftenFindings = report.ziftenFindings ;
+      this.userFindings = report.userFindings;
+      // Findings by type
+      this.adware = report.adware;
+      this.virus = report.virus;
+      this.mail = report.mail;
+      // Sources
       this.mcafee = report.mcafee;
       this.snow = report.snow;
       this.teknas = report.teknas;
+      this.umbrella = report.umbrella;
+      // Types
       this.suspiciousDestination = report.suspiciousDestination;
       this.suspiciousBinariesOT = report.suspiciousBinariesOT;
       this.newSuspiciousBinary = report.newSuspiciousBinary;
       this.vulnerableFileWasFound = report.vulnerableFileWasFound;
       this.newVulnerableFile = report.newVulnerableFile;
       this.vulnerableBinaries = report.vulnerableBinaries;
-      this.umbrella = report.umbrella;
-      this.tpsFindings = report.tpsFindings;
-   this.ziftenFindings = report.ziften ;
-   this.mcafeeFindings = report.mcafeeFindings;
-   this.userFindings = report.userFindings;
-   this.adware = report.adware;
-   this.virus = report.virus;
-   this.mail = report.mail;
+      this.reputationList = report.reputationList;
+      this.fileAnalysis = report.fileAnalysis;
+      this.behavioral = report.behavioral;
+      this.DGA = report.DGA;
+      this.LM = report.LM;
+      this.EP = report.EP;
       this.chartsFlag = true;
       this.isChartsShown = true;
       this.calcTps();
@@ -172,7 +181,6 @@ export class ChartsComponent implements OnInit {
       this.createDoughnutForRawTps();
       this.createChartsForType();
       this.createPieChartsForFindings();
-      
     });
   
     }
@@ -254,6 +262,7 @@ export class ChartsComponent implements OnInit {
       // 
       
       report = report[0];
+      this.jobId = report.jobId;
       this.reputationList = report.reputationList;
       this.behavioral = report.behavioral
       this.DGA = report.DGA

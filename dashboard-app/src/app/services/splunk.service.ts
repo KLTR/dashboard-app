@@ -16,7 +16,7 @@ export class SplunkService {
   // Search 25ad9f1337a85e00f95fa6d2b3990eb7 
   // IT_T1_SOC =  25ad9f1337a85e00f95fa6d2b3990eb7  THIS IS THE ID IN SPLUNK FOR SERVICE NOW !
   // "https://splunk.verint.corp.verintsystems.com:8089/services/search/jobs/1512146145.1023222_1C7E362D-C667-42DA-9978-6EA15A3D370B/events?count=1500"
-  APIUrl: string = "https://splunk.verint.corp.verintsystems.com:8089/services/search/jobs/"+this.jobid+"/events?count=1500";
+  APIUrl: string = `https://splunk.verint.corp.verintsystems.com:8089/services/search/jobs/${this.jobid}/events?count=1500`;
   constructor(private http: Http) {
 
 
@@ -39,5 +39,7 @@ export class SplunkService {
 });
 
   }
-   
+  getByDateSnow = function(date){
+    // gets json of incidents
+  }
 }
