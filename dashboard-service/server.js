@@ -23,18 +23,11 @@ app.use(
         next();
     });
 
-app.get('/getReportByDate/:date', (req, res, next) => {
-    data.getReportByDate(req.params.date).then((result, error) => {
-        res.status(200).json(result);
-    }, (error) => {
-        console.log(error);
-        next();
-    });
-});
-
 app.post('/enterNewReport/', (req, res, next) => {
     console.log("Enter new report entered in server.js");
-    data.enterNewReport(req.body.mcafee,
+    data.enterNewReport(
+        req.body.jobId,
+        req.body.mcafee,
         req.body.teknas,
         req.body.snow,
         req.body.umbrella,
@@ -63,6 +56,16 @@ app.post('/enterNewReport/', (req, res, next) => {
     })
 })
 
+app.get('/getReportByDate/:date', (req, res, next) => {
+    data.getReportByDate(req.params.date).then((result, error) => {
+        res.status(200).json(result);
+    }, (error) => {
+        console.log(error);
+        next();
+    });
+});
+
+
 app.get('/getAllReports', (req, res, next) => {
   data.getAllReports().then((result, error) => {
     res.status(200).json(result);
@@ -80,6 +83,25 @@ app.get('/getLastReport', (req, res, next) => {
     next();
   });
 });
+
+app.get('/getFindingsBySource', (req, res, next) => {
+  data.getFindingsBySource().then((result, error) => {
+    res.status(200).json(result);
+  }, (error) => {
+    console.log(error);
+    next();
+  });
+});
+
+app.get('/getFindingsByType', (req, res, next) => {
+  data.getFindingsByType().then((result, error) => {
+    res.status(200).json(result);
+  }, (error) => {
+    console.log(error);
+    next();
+  });
+});
+
 
 //error 404 route
 app.all('*', (req, res) => {

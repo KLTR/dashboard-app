@@ -24,6 +24,7 @@ var mongoose = require('mongoose'),
         tpsFindings: Number,
         ziftenFindings: Number,
         mcafeeFindings: Number,
+        userFindings: Number,
         adware: Number,
         virus: Number,
         mail: Number

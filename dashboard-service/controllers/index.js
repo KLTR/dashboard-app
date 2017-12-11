@@ -5,7 +5,7 @@ const mongoose = require('mongoose'),
 
 class Dashboard {
 
-    enterNewReport(_mcafee, _teknas, _snow, _umbrella, _reputationList,
+    enterNewReport(_jobId, _mcafee, _teknas, _snow, _umbrella, _reputationList,
         _behavioral, _DGA, _fileAnalysis, _LM, _EP,
         _suspiciousDestination, _suspiciousBinariesOT,
         _newSuspiciousBinary, _newVulnerableFile,
@@ -14,6 +14,7 @@ class Dashboard {
         _adware, _virus, _mail) {
         return new Promise((resolve, reject) => {
             var newReport = new Report({
+                jobId: _jobId,
                 mcafee: _mcafee,
                 teknas: _teknas,
                 snow: _snow,
@@ -67,6 +68,26 @@ class Dashboard {
             });
         });
     }
+    
+    getFindingsBySource() {
+        return new Promise((resolve, reject) => {
+            Report.find({},{date:1, tpsFindings:1, ziftenFindings: 1, mcafeeFindings: 1},
+                (err, result) => {
+                    if (err) reject(err);
+                    else resolve(result);
+                }).limit(8);
+        });
+    }
+
+    getFindingsByType() {
+        return new Promise((resolve, reject) => {
+            Report.find({},{date:1, adware:1, virus: 1, mail: 1},
+                (err, result) => {
+                    if (err) reject(err);
+                    else resolve(result);
+                }).limit(8);
+        });        
+    }    
 
     getLastReport() {
         return new Promise((resolve, reject) => {

@@ -21,10 +21,8 @@
                               key: date<br>
                               format: dd-mm-yy<br>
                               values: string<br>
-                             <a href="https://localhost:3000/getReportByDate">
-                                https://localhost:3000/getReportByDate
-                            </a>
-                            <br>
+                              Example:<br>
+                                <pre>https://localhost:3000/getReportByDate/August 28th, 2017</pre>
                     </div>
 
                     <div class="panel-heading"><h3>Enter new report</h3></div>
@@ -33,10 +31,8 @@
                               This is a <b>POST</b> route. Enter a new report<br><br>
                               key: {report data}<br>
                               values: number<br>
-                             <a href="https://localhost:3000/enterNewReport">
-                                https://localhost:3000/enterNewReport
-                            </a>
-                            <br>
+                              Example:
+                              <pre>https://localhost:3000/enterNewReport</pre>
                     </div>
 
                     <div class="panel-heading"><h3>Get All Reports:</h3></div>
@@ -44,10 +40,8 @@
                     <div class="panel-body">
                               This is a <b>GET</b> route. Gets you all the reports so far<br><br>
                               No Values!<br>
-                             <a href="https://localhost:3000/getAllReports">
-                                https://localhost:3000/getAllReports
-                            </a>
-                            <br>
+                              Example:<br>
+                              <pre>https://localhost:3000/getAllReports</pre>
                     </div>
 
                     <div class="panel-heading"><h3>Get Last Report:</h3></div>
@@ -55,10 +49,26 @@
                     <div class="panel-body">
                               This is a <b>GET</b> route. Gets the last report created<br><br>
                               No Values!<br>
-                             <a href="https://localhost:3000/getLastReport">
-                                https://localhost:3000/getLastReport
-                            </a>
-                            <br>
+                              Example:
+                             <pre>https://localhost:3000/getLastReport</pre>
+                    </div>
+
+                    <div class="panel-heading"><h3>Get Trending Findings Source:</h3></div>
+
+                    <div class="panel-body">
+                              This is a <b>GET</b> route. Gets trending from source with date<br><br>
+                              No Values!<br>
+                              Example:<br>
+                              <pre>https://localhost:3000/getFindingsBySource</pre>
+                    </div>
+
+                    <div class="panel-heading"><h3>Get Trending Findings Type:</h3></div>
+
+                    <div class="panel-body">
+                              This is a <b>GET</b> route. Gets trending by type with date<br><br>
+                              No Values!<br>
+                              Example:<br>
+                              <pre>https://localhost:3000/getFindingsByType</pre>
                     </div>
           </div>
     </div>
