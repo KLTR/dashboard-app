@@ -1,9 +1,50 @@
 'use strict';
 const mongoose = require('mongoose'),
-    Report = require('./../models/report'),
-    promise = require('promise');
+      Report = require('./../models/report'),
+      promise = require('promise'),
+      http = require('http'),
+      httpreq = require('httpreq'),
+      fs = require('fs');
 
 class Dashboard {
+
+    splunk() {
+        return new Promise((resolve, reject) => {
+            var result;
+            var base64encodedData = new Buffer('rLevy : AaAa1234$').toString('base64');
+            var options = {
+                method: 'GET',
+               "hostname": "splunk.verint.corp.verintsystems.com",
+                  "port": "8089",
+                  "path": "services/search/jobs/1513351643.272707_CDC6AE6D-BA62-4E3A-ACDB-786F34783583/events?count=1500",
+                  ca: [fs.readFileSync(["services/search/jobs/1513351643.272707_CDC6AE6D-BA62-4E3A-ACDB-786F34783583/events?count=1500s"], {encoding: 'utf-8'})],
+                headers: {
+                    'Content-Type'  : 'application/x-www-form-urlencoded',
+                    'Access-Control-Allow-Origin':'*',
+                    'Access-Control-Allow-Headers':'*',
+                    'Authorization' : 'Basic ' + base64encodedData,
+                    "Cache-Control": "no-cache"
+                }
+            }
+
+              const req = http.request(options, (res) => {
+              res.on('data', (chunk) => {
+                console.log(`BODY: ${chunk}`);
+              });
+              res.on('end', () => {
+                console.log('No more data in response.');
+              });
+            });
+
+            req.on('error', (e) => {
+              console.error(`problem with request: ${e.stack}`);
+            });;
+            req.end();
+            resolve(result);
+        })
+
+
+    }
 
     enterNewReport(_jobId, _mcafee, _teknas, _snow, _umbrella, _reputationList,
         _behavioral, _DGA, _fileAnalysis, _LM, _EP,
@@ -38,6 +79,7 @@ class Dashboard {
                 virus: _virus,
                 mail: _mail
             });
+            //splunkData.getLastWeekSnow(_jobId);
             newReport.save(
                 (err) => {
                     if (err)

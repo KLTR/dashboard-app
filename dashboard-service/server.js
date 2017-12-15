@@ -23,6 +23,18 @@ app.use(
         next();
     });
 
+//test route for splunk
+
+app.get('/splunk/', (req, res, next) => {
+  data.splunk().then((result, error) => {
+    res.status(200).json(result);
+  }, (error) => {
+    console.log(error);
+    next();
+  }); 
+});
+
+//
 app.post('/enterNewReport/', (req, res, next) => {
     console.log("Enter new report entered in server.js");
     data.enterNewReport(

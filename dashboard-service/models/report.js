@@ -5,6 +5,7 @@ var mongoose = require('mongoose'),
 
     ReportSchema = new schema({
         date: {type: String, required: true, default: dateFormat(now, "mmmm dS, yyyy")},
+        jobId: String,
         mcafee: Number,
         teknas: Number,
         snow: Number,
