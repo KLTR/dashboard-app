@@ -116,16 +116,39 @@ img:hover{
 }
 
 .finding{
-    margin: 0 3rem 0 3rem;
+    margin: 1rem 3rem 0 3rem;
 }
 
 .trending-wrapper{
     margin: 10px 0 10px 0
 }
 .date-selector{
-    position: absolute;
     top: 7rem;
 }
 .chartsContainer{
     position: relative;
+}
+.doughnut{
+    min-height: 360px;
+}
+
+.selected-date{
+    width: 225px;
+    background-color: #2B3E50;
+    color: white;
+    /* -webkit-box-shadow: 0px 0px 1px 1px;
+    box-shadow: 0px 0px 1px 1px; */
+}
+.chartsContainer{
+    margin-top:50px;
+}
+.finding canvas{
+    height: 500px;
+}
+.findings-header{
+    color: black;   
+}
+.form-control:focus {
+    /* -webkit-box-shadow: 0px 0px 1px 1px;
+    box-shadow: 0px 0px 1px 1px; */
 }

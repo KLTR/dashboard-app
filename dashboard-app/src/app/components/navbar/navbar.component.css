@@ -19,3 +19,17 @@ img:hover{
 a:hover{
     cursor: pointer;
 }
+
+.navbar-brand{
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100px;
+}
+
+#logo{
+    top: -2.8rem;
+    position: absolute;
+    height: 85px;
+    width: 105px;
+}

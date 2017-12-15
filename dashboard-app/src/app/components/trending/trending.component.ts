@@ -9,20 +9,28 @@ declare var $ :any;
   styleUrls: ['./trending.component.css']
 })
 export class TrendingComponent implements OnInit {
+  tableBySource = true;
 findingsBySource : [any];
 findingsByType : [any];
-dates  = new Array(); //labels
+datesBySource  = new Array(); //labels
 tpsFindings = new Array(); 
 ziftenFindings = new Array();
 mcafeeFindings =  new Array();
 userFindings = new Array();
 vulnerableFileWasFound: number;
 newVulnerableFile: number;
-files: number;
-adware: number;
-virus: number;
-mail: number;
-tps: number;
+files :number;
+tps :number
+
+datesBytype  = new Array(); //labels
+adware = new Array();
+virus = new Array();
+mail = new Array();
+
+adwares : number;
+viruses: number;
+mails: number;
+
 sysLabelIndex = 0;
   constructor(private chartService:Chartservice) { }
 
@@ -33,39 +41,27 @@ sysLabelIndex = 0;
       console.log()
       // dates + values
       for(let i = 0; i < this.findingsBySource.length ; i++){
-        this.dates[i] = this.findingsBySource[i].date
+        this.datesBySource[i] = this.findingsBySource[i].date
         this.tpsFindings[i] = this.findingsBySource[i].tpsFindings;
         this.ziftenFindings[i] = this.findingsBySource[i].ziftenFindings;
         this.mcafeeFindings[i] = this.findingsBySource[i].mcafeeFindings;
-        this.lineChartLabelsBySource = this.dates;
+        this.lineChartLabelsBySource = this.datesBySource;
       }
 
     });
-    // this.chartService.getFindingsByType().subscribe(findings => {
-    //   this.findingsByType = findings;
-    //   console.log(this.findingsByType);
+    this.chartService.getFindingsByType().subscribe(findings => {
+      this.findingsByType = findings;
       
-    //   // dates + values
-    //   for(let i = 0; i < this.findingsByType.length ; i++){
-    //     this.dates[i] = this.findingsByType[i].date
-    //     this.tpsFindings[i] = this.findingsByType[i].adware;
-    //     this.ziftenFindings[i] = this.findingsByType[i].virus;
-    //     this.mcafeeFindings[i] = this.findingsByType[i].mail;
-    //     this.lineChartLabelsType = this.dates;
-    //   }
-
-    // });
-    this.chartService.getLastReport().subscribe(report => {
-
-      this.vulnerableFileWasFound = report.vulnerableFileWasFound;
-      this.newVulnerableFile = report.newVulnerableFile;
-      this.files = report.suspiciousBinariesOT + report.fileAnalysis + report.newVulnerableFile
-      this.tps = report.reputationList + report.behavioral + report.DGA + report.fileAnalysis + report.LM + report.EP;
-      this.adware = report.adware;
-      this.virus = report.virus;
-      this.mail = report.mail;
-      
+      // dates + values
+      for(let i = 0; i < this.findingsByType.length ; i++){
+        this.datesBytype[i] = this.findingsByType[i].date
+        this.adware[i] = this.findingsByType[i].adware;
+        this.virus[i] = this.findingsByType[i].virus;
+        this.mail[i] = this.findingsByType[i].mail;
+        this.lineChartLabelsByType = this.datesBytype;
+      }
     });
+
   }
 
 
@@ -86,17 +82,17 @@ public lineChartDataBySource:Array<any> = [
 ];
 public lineChartLabelsBySource;
 public lineChartSystemLabels: Array<any> = [
-  'Tps','Ziften','Mcafee'
+  'Tps','Ziften','Mcafee','User'
 ]
 
 // lineChart Type
-public lineChartDataType:Array<any> = [
-  {data: this.tpsFindings, label: 'Adware'},
-  {data: this.mcafeeFindings, label: 'Virus'},  
-  {data: this.ziftenFindings, label: 'Malicious Mail'},
+public lineChartDataByType:Array<any> = [
+  {data: this.adware, label: 'Adwares'},
+  {data: this.virus, label: 'Viruses'},  
+  {data: this.mail, label: 'Mails'},
 ];
-public lineChartLabelsType;
-public lineChartSystemLabelsType: Array<any> = [
+public lineChartLabelsByType;
+public lineChartSystemLabelsByType: Array<any> = [
   'Adware','Virus','Malicious Mail'
 ]
 public lineChartOptions:any = {
@@ -104,28 +100,29 @@ public lineChartOptions:any = {
 };
 public lineChartColors:Array<any> = [
   { // Tps color
-    backgroundColor: 'rgba(17, 107, 132,0.2)',
-    borderColor: 'rgb(70, 143, 163)',
-    pointBackgroundColor: 'rgb(70, 143, 163)',
+    backgroundColor: 'rgba(0, 189, 206,0.2)',
+    
+    borderColor: '#4DC4D0',
+    pointBackgroundColor: '#4DC4D0',
     pointBorderColor: '#fff',
     pointHoverBackgroundColor: '#fff',
     pointHoverBorderColor: '#31B0D5'
   },
   { // mcAfee Color
     backgroundColor: 'rgba(77,83,96,0.2)',
-    borderColor: 'rgba(77,83,96,1)',
-    pointBackgroundColor: 'rgba(77,83,96,1)',
+    borderColor: '#5E7EBE',
+    pointBackgroundColor: '#5E7EBE',
     pointBorderColor: '#fff',
     pointHoverBackgroundColor: '#fff',
-    pointHoverBorderColor: 'rgba(77,83,96,1)'
+    pointHoverBorderColor: '#5E7EBE'
   },
   { // Ziften Color
-    backgroundColor: 'rgba(210, 105, 30,0.2)',
-    borderColor: 'rgba(210, 105, 30,1)',
-    pointBackgroundColor: 'rgba(210, 105, 30,1)',
+    backgroundColor: 'rgba(2, 43, 109,0.2)',
+    borderColor: '#384E72',
+    pointBackgroundColor: '#384E72',
     pointBorderColor: '#fff',
     pointHoverBackgroundColor: '#fff',
-    pointHoverBorderColor: 'rgba(210, 105, 30,1)'
+    pointHoverBorderColor: '#384E72'
   }
 ];
 public lineChartLegend:boolean = true;
@@ -142,6 +139,9 @@ public chartHovered(e:any):void {
   console.log(e);
 }
 
+toggleTables(){
+  this.tableBySource = !this.tableBySource;
+}
 ngAfterViewInit() {
   
   

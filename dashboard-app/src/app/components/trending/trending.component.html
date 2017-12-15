@@ -1,7 +1,9 @@
-<div  class="wrapper container-fluid">
-    <h1>Trending</h1>
+<div class="trends-tables">
+
+<div *ngIf="tableBySource; else tableByType"  class="wrapper container-fluid">
+    <button (click)="toggleTables()" class="toggle btn btn-default btn-round"><h1><i class="fa fa-refresh" aria-hidden="true"></i> Trends - Findings by Source</h1></button>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12 col-lg-6">
           <div style="display: block;">
           <canvas baseChart width="800" height="400"
                       [datasets]="lineChartDataBySource"
@@ -14,7 +16,7 @@
                       (chartClick)="chartClicked($event)"></canvas>
           </div>
         </div>
-        <div class="col-md-5" style="margin-bottom: 10px">
+        <div class="col-md-12 col-lg-6" style="margin-bottom: 10px">
 
             <table class="table table-responsive table-condensed table-striped table-hover ">
                 <thead>
@@ -23,30 +25,52 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- <ul class="system-labels">
-                    <li class="badge active" *ngFor="let label of lineChartSystemLabels">{{label}}</li>
-                  </ul> -->
                       <tr *ngFor="let d of lineChartDataBySource;">
                           <ng-container *ngFor="let label of lineChartLabelsBySource; let j=index">
-                            <td><span class="label label-default" *ngIf="j==0;">{{d.label}}</span>{{d.data[j]}} </td>
+                            <td ><span class="label label-default" *ngIf="j==0">{{d.label}}</span>{{d.data[j]}} </td>
                           </ng-container>
                         </tr>
                 </tbody>
               </table> 
-              <h2>Trending</h2>
-              <p >Last week there were :</p>    
-              <section id="container" >
-                <ul class="text-center slide-up">
-                  <li > {{virus}} Viruses  </li>
-                  <li> {{mail}} Malicious emails  </li>
-                  <li> {{tps}} TPS Alerts </li>
-                  <li> {{adware}} Adwares </li>
-                  <li> {{files}} Suspicious Files </li>
-                  <li> {{vulnerableFileWasFound}} Vulnerable Files </li>        
-                </ul>
-              </section>
-   
         </div>
       </div>
+</div>
+<ng-template #tableByType>
+<div  class="wrapper container-fluid">
+  <button (click)="toggleTables()" class="toggle btn btn-default"><h1><i class="fa fa-refresh" aria-hidden="true"></i> Trends - Findings by Type</h1></button>
+  <div class="row">
+      <div class="col-md-6">
+        <div style="display: block;">
+        <canvas baseChart width="800" height="400"
+                    [datasets]="lineChartDataByType"
+                    [labels]="lineChartLabelsByType"
+                    [options]="lineChartOptions"
+                    [colors]="lineChartColors"
+                    [legend]="lineChartLegend"
+                    [chartType]="lineChartType"
+                    (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)"></canvas>
+        </div>
+      </div>
+      <div class="col-md-6" style="margin-bottom: 10px">
 
+          <table class="table table-responsive table-condensed table-striped table-hover ">
+              <thead>
+                <tr>
+                  <th *ngFor="let label of lineChartLabelsByType">{{label}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                    <tr *ngFor="let d of lineChartDataByType;">
+                        <ng-container *ngFor="let label of lineChartLabelsByType; let j=index">
+                          <td><span class="label label-default" *ngIf="j==0;">{{d.label}}</span>{{d.data[j]}} </td>
+                        </ng-container>
+                      </tr>
+              </tbody>
+            </table> 
+      </div>
+    </div>
+</div>
+</ng-template>
+  
 </div>
