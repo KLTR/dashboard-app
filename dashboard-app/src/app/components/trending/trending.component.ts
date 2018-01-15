@@ -37,14 +37,13 @@ sysLabelIndex = 0;
   ngOnInit() {
     this.chartService.getFindingsBySource().subscribe(findings => {
       this.findingsBySource = findings;
-      console.log(this.findingsBySource);
-      console.log()
       // dates + values
       for(let i = 0; i < this.findingsBySource.length ; i++){
-        this.datesBySource[i] = this.findingsBySource[i].date
+        this.datesBySource[i] = this.findingsBySource[i].date 
         this.tpsFindings[i] = this.findingsBySource[i].tpsFindings;
         this.ziftenFindings[i] = this.findingsBySource[i].ziftenFindings;
         this.mcafeeFindings[i] = this.findingsBySource[i].mcafeeFindings;
+        this.userFindings[i] = this.findingsBySource[i].userFindings;
         this.lineChartLabelsBySource = this.datesBySource;
       }
 
@@ -132,11 +131,11 @@ public lineChartType:string = 'line';
 
 // events
 public chartClicked(e:any):void {
-  console.log(e);
+  // console.log(e);
 }
 
 public chartHovered(e:any):void {
-  console.log(e);
+  // console.log(e);
 }
 
 toggleTables(){

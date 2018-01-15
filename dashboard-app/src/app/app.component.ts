@@ -9,8 +9,8 @@ import { Component,Inject } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
-  sandstone = '../assets/styles and themes/sandstone.css';
-  superhero = '../assets/styles and themes/superhero.css';
+  sandstone = './../assets/styles and themes/sandstone.css';
+  superhero = './../assets/styles and themes/superhero.css';
   color = 'Sandstone'
   constructor(@Inject(DOCUMENT) private document ){
 

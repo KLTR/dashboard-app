@@ -23,20 +23,7 @@ app.use(
         next();
     });
 
-//test route for splunk
-
-app.get('/splunk/', (req, res, next) => {
-  data.splunk().then((result, error) => {
-    res.status(200).json(result);
-  }, (error) => {
-    console.log(error);
-    next();
-  }); 
-});
-
-//
 app.post('/enterNewReport/', (req, res, next) => {
-    console.log("Enter new report entered in server.js");
     data.enterNewReport(
         req.body.jobId,
         req.body.mcafee,
@@ -58,15 +45,83 @@ app.post('/enterNewReport/', (req, res, next) => {
         req.body.tpsFindings,
         req.body.ziftenFindings,
         req.body.mcafeeFindings,
+        req.body.userFindings,
         req.body.adware,
         req.body.virus,
-        req.body.mail).then((result) => {
+        req.body.mail,
+        req.body.date).then((result) => {
         result.length === 0 ? next() : res.status(200).json(result);
     }, (error) => {
         console.log(error);
         next();
     })
 })
+
+app.post('/updateReport/', (req, res, next) => {
+    data.enterNewReport(
+        req.body.jobId,
+        req.body.mcafee,
+        req.body.teknas,
+        req.body.snow,
+        req.body.umbrella,
+        req.body.reputationList,
+        req.body.behavioral,
+        req.body.DGA,
+        req.body.fileAnalysis,
+        req.body.LM,
+        req.body.EP,
+        req.body.suspiciousDestination,
+        req.body.suspiciousBinariesOT,
+        req.body.newSuspiciousBinary,
+        req.body.newVulnerableFile,
+        req.body.vulnerableFileWasFound,
+        req.body.vulnerableBinaries,
+        req.body.tpsFindings,
+        req.body.ziftenFindings,
+        req.body.mcafeeFindings,
+		   req.body.userFindings,	
+        req.body.adware,
+        req.body.virus,
+        req.body.mail,
+        req.body.date).then((result) => {
+        result.length === 0 ? next() : res.status(200).json(result);
+    }, (error) => {
+        console.log(error);
+        next();
+    })
+})
+
+//delete a report route
+app.get('/deleteReport/:date', (req, res, next) => {
+  data.deleteReport(req.params.date).then((result, error) => {
+    res.status(200).json(result);
+  }, (error) => {
+    console.log(error);
+    next();
+  }); 
+});
+
+//test route for splunk
+
+app.get('/splunk/:jobid', (req, res, next) => {
+  data.splunk(req.params.jobid).then((result, error) => {
+    res.status(200).send(result);
+  }, (error) => {
+    console.log(error);
+    next();
+  }); 
+});
+
+//test route for SNOW
+
+app.get('/snow/', (req, res, next) => {
+  data.snow().then((result, error) => {
+    res.status(200).json(result);
+  }, (error) => {
+    console.log(error);
+    next();
+  }); 
+});
 
 app.get('/getReportByDate/:date', (req, res, next) => {
     data.getReportByDate(req.params.date).then((result, error) => {
@@ -98,7 +153,7 @@ app.get('/getLastReport', (req, res, next) => {
 
 app.get('/getFindingsBySource', (req, res, next) => {
   data.getFindingsBySource().then((result, error) => {
-    res.status(200).json(result);
+    res.status(200).json(result.reverse());
   }, (error) => {
     console.log(error);
     next();
@@ -107,7 +162,7 @@ app.get('/getFindingsBySource', (req, res, next) => {
 
 app.get('/getFindingsByType', (req, res, next) => {
   data.getFindingsByType().then((result, error) => {
-    res.status(200).json(result);
+    res.status(200).json(result.reverse());
   }, (error) => {
     console.log(error);
     next();

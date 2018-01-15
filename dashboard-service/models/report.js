@@ -28,7 +28,14 @@ var mongoose = require('mongoose'),
         userFindings: Number,
         adware: Number,
         virus: Number,
-        mail: Number
+        mail: Number,
+        snowIncidents: [{
+            link: String,
+            incNum: String,
+            date: String,
+            state: String,
+            label: String,
+            desc: String }]
     }, {collection: 'Report'});
 
     var Report = mongoose.model('Report', ReportSchema);

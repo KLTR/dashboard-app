@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import {Chartservice} from '../../services/chartservice.service';
 import {SplunkService} from '../../services/splunk.service';
+import { ViewChild } from '@angular/core';
+import { ElementRef } from '@angular/core';
+declare let $: any;
 @Component({
   selector: 'app-charts',
   templateUrl: './charts.component.html',
   styleUrls: ['./charts.component.css']
 })
 export class ChartsComponent implements OnInit {
-
+  @ViewChild('modal') modal:ElementRef;
   // jobID
   private jobId: string;
 
@@ -137,9 +140,7 @@ export class ChartsComponent implements OnInit {
           this.dates = dates;
           this.selectedDate = dates[0];       
       });
-  
-      this.sourceFlag = true;
-  
+    this.sourceFlag = true;
     this.chartService.getLastReport().subscribe(report => {
       // jobID
       this.jobId = report.jobId;
@@ -280,7 +281,7 @@ export class ChartsComponent implements OnInit {
       this.vulnerableBinaries = report.vulnerableBinaries
       this.umbrella = report.umbrella;
       this.tpsFindings = report.tpsFindings;
-      this.ziftenFindings = report.ziften ;
+      this.ziftenFindings = report.ziftenFindings ;
       this.mcafeeFindings = report.mcafeeFindings;
       this.userFindings = report.userFindings;
       this.adware = report.adware;
@@ -331,14 +332,17 @@ export class ChartsComponent implements OnInit {
       }
       
   }
-  
-    public chartClicked(e:any,key):void {
-      // console.log("Index", e.active[0]._index);
-      // console.log("Data" , e.active[0]._chart.config.data.datasets[0].data[e.active[0]._index]);
-      // console.log("Label" , e.active[0]._chart.config.data.labels[e.active[0]._index]);    
-      let label = e.active[0]._chart.config.data.labels[e.active[0]._index];
-      this.chartService.getFindingIncident(label,key,this.selectedDate);
-    }
-  
+
+
+    public chartClicked(e:any,key):void {   
+      // charts is clicked. checking if clicked on a label to open modal or not
+    //   if(e.active[0]){
+    //   let label = e.active[0]._chart.config.data.labels[e.active[0]._index];
+    //   if(label){
+    //     console.log(label);
+    //       $(this.modal.nativeElement).modal('show'); 
+    //   }
+    // }
+  }
   }
 

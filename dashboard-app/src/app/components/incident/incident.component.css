@@ -41,3 +41,16 @@
 .label-default{
     background-color:black
 }
+.selected-date{
+    width: 225px;
+    background-color: #2B3E50;
+    color: white;
+    display: inline;
+    margin-left: 15px;
+    bottom: 13.5%;
+    /* -webkit-box-shadow: 0px 0px 1px 1px;
+    box-shadow: 0px 0px 1px 1px; */
+}
+.modal-title{
+    display: inline
+}

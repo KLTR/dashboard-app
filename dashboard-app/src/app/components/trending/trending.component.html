@@ -27,7 +27,7 @@
                 <tbody>
                       <tr *ngFor="let d of lineChartDataBySource;">
                           <ng-container *ngFor="let label of lineChartLabelsBySource; let j=index">
-                            <td ><span class="label label-default" *ngIf="j==0">{{d.label}}</span>{{d.data[j]}} </td>
+                            <td ><span style="background-color: transparent;" class="label label-defaul"   *ngIf="j==0">{{d.label}}</span>{{d.data[j]}} </td>
                           </ng-container>
                         </tr>
                 </tbody>
@@ -63,7 +63,7 @@
               <tbody>
                     <tr *ngFor="let d of lineChartDataByType;">
                         <ng-container *ngFor="let label of lineChartLabelsByType; let j=index">
-                          <td><span class="label label-default" *ngIf="j==0;">{{d.label}}</span>{{d.data[j]}} </td>
+                          <td><span style="background-color: transparent;" class="label label-default" *ngIf="j==0;">{{d.label}}</span>{{d.data[j]}} </td>
                         </ng-container>
                       </tr>
               </tbody>

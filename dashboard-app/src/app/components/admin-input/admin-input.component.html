@@ -1,120 +1,264 @@
 <!-- Admin Section  -->
-<div class="container">
-    <form (ngSubmit)="submit(event)">
-        <div class="row">
-            <h2>Job Id</h2>
-            <label>Splunk Job Id</label>
-            <input  required name="jobId" [(ngModel)]="jobId" type="text" class="form-control">
-            <!--All systems  -->
-            <h2 class="text-header">All System</h2>
-            <div class="form-group col-md-3">
-                <label>McAfee</label>
-                <input name="mcafee" [(ngModel)]="mcafee" type="number" class="form-control">
-            </div>
-            <div class="form-group col-md-3">
-                <label>Teknas</label>
-                <input name="teknas" [(ngModel)]="teknas" type="number" class="form-control">
-            </div>
-            <div class="form-group col-md-3">
-                <label>Service Now / User</label>
-                <input name="snow" [(ngModel)]="snow" type="number" class="form-control">
-            </div>
-            <div class="form-group col-md-3">
-                <label>Umbrella</label>
-                <input name="umbrella" [(ngModel)]="umbrella" type="number" class="form-control">
-            </div>
-            <!--TPS  -->
-            <h2 class="text-header">TPS</h2>
-            <div class="form-group col-md-4">
-                <label>C&C (Reputation list)</label>
-                <input name="reputationList" [(ngModel)]="reputationList" type="number" class="form-control">
-            </div>
-            <div class="form-group col-md-4">
-                <label>C&C (Behavioral Analysis)</label>
-                <input name="behavioral" [(ngModel)]="behavioral" type="number" class="form-control">
-            </div>
-            <div class="form-group col-md-4">
-                <label>C&C (DGA)</label>
-                <input name="DGA" [(ngModel)]="DGA" type="number" class="form-control">
-            </div>
-            <div class="form-group col-md-4">
-                <label>File Analysis</label>
-                <input name="fileAnalysis" [(ngModel)]="fileAnalysis" type="number" class="form-control">
-            </div>
-            <div class="form-group col-md-4">
-                <label>Lateral Movement</label>
-                <input name="LM" [(ngModel)]="LM" type="number" class="form-control">
-            </div>
-            <div class="form-group col-md-4">
-                <label>Endpoint Forensics</label>
-                <input name="EP" [(ngModel)]="EP" type="number" class="form-control">
-            </div>
-            <!--Ziften  -->
-            <h2 class="text-header">Ziften</h2>
-            <div class="form-group col-md-4">
-                <label>New Connection to a Suspicious Destination</label>
-                <input name="suspiciousDestination" [(ngModel)]="suspiciousDestination" type="number" class="form-control">
-            </div>
-            <div class="form-group col-md-4">
-                <label>Suspicious binaries over time</label>
-                <input name="suspiciousBinariesOT" [(ngModel)]="suspiciousBinariesOT" type="number" class="form-control">
-            </div>
-            <div class="form-group col-md-4">
-                <label>New Suspicious Binary has been Executed</label>
-                <input name="newSuspiciousBinary" [(ngModel)]="newSuspiciousBinary" type="number" class="form-control">
-            </div>
-            <div class="form-group col-md-4">
-                <label>New Vulnerable File was Executed</label>
-                <input name="newVulnerableFile" [(ngModel)]="newVulnerableFile" type="number" class="form-control">
-            </div>
-            <div class="form-group col-md-4">
-                <label>Vulnerable File was Found</label>
-                <input name="vulnerableFileWasFound" [(ngModel)]="vulnerableFileWasFound" type="number" class="form-control">
-            </div>
-            <div class="form-group col-md-4">
-                <label>vulnerable binaries</label>
-                <input name="vulnerableBinaries" [(ngModel)]="vulnerableBinaries" type="number" class="form-control">
-            </div>
-            <!--findings (Type) -->
-            <h2 class="text-header">Findings (Type)</h2>
-            <div class="form-group col-md-4">
-                <label>Adware/Unwanted Program</label>
-                <input name="adware" [(ngModel)]="adware" type="number" class="form-control">
-            </div>
-            <div class="form-group col-md-4">
-                <label>Virus</label>
-                <input name="virus" [(ngModel)]="virus" type="number" class="form-control">
-            </div>
-            <div class="form-group col-md-4">
-                <label>Malicious Emails</label>
-                <input name="mail" [(ngModel)]="mail" type="number" class="form-control">
-            </div>
+<div class="container" style="padding-top:8rem;">
 
-            <h2 class="text-header">Findings (Source)</h2>
-            <div class="form-group col-md-3">
-                <label>Tps</label>
-                <input name="tpsFindings" [(ngModel)]="tpsFindings" type="number" class="form-control">
-            </div>
-            <div class="form-group col-md-3">
-                <label>McAfee</label>
-                <input name="mcafeeFindings" [(ngModel)]="mcafeeFindings" type="number" class="form-control">
-            </div>
-            <div class="form-group col-md-3">
-                <label>Ziften</label>
-                <input name="ziftenFindings" [(ngModel)]="ziftenFindings" type="number" class="form-control">
-            </div>
-            <div class="form-group col-md-3">
-                <label>User</label>
-                <input name="userFindings" [(ngModel)]="userFindings" type="number" class="form-control">
-            </div>
-            <div class="col-md-4">
-                <button type="button" (click)="preview()" class="btn btn-primary">Preview</button>
-                <button type="submit" class="btn btn-danger">Submit</button>
-            </div>
-            <!--row  -->
-        </div>
-        <!--form  -->
-    </form>
+        <ul class="nav nav-tabs" id="tabs">
+                <li (click)="clearReport()" class="active"><a href="#new" data-toggle="tab" aria-expanded="true">Create a new report</a></li>
+                <li  class=""><a href="#edit" (click)="selectDate()" data-toggle="tab" aria-expanded="false">Edit an existing one</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade active in" id="new">
+                        <form (ngSubmit)="submit(event)">
+                                <div class="row">
+                                    <h2>Job Id</h2>
+                                    <label>Splunk Job Id</label>
+                                    <input  required name="jobId" [(ngModel)]="jobId" type="text" class="form-control">
+                                    <!--All systems  -->
+                                    <h2 class="text-header">All System</h2>
+                                    <div class="form-group col-md-3">
+                                        <label>McAfee</label>
+                                        <input name="mcafee" [(ngModel)]="mcafee" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>Teknas</label>
+                                        <input name="teknas" [(ngModel)]="teknas" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>Service Now / User</label>
+                                        <input name="snow" [(ngModel)]="snow" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>Umbrella</label>
+                                        <input name="umbrella" [(ngModel)]="umbrella" type="number" class="form-control">
+                                    </div>
+                                    <!--TPS  -->
+                                    <h2 class="text-header">TPS</h2>
+                                    <div class="form-group col-md-4">
+                                        <label>C&C (Reputation list)</label>
+                                        <input name="reputationList" [(ngModel)]="reputationList" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>C&C (Behavioral Analysis)</label>
+                                        <input name="behavioral" [(ngModel)]="behavioral" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>C&C (DGA)</label>
+                                        <input name="DGA" [(ngModel)]="DGA" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>File Analysis</label>
+                                        <input name="fileAnalysis" [(ngModel)]="fileAnalysis" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Lateral Movement</label>
+                                        <input name="LM" [(ngModel)]="LM" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Endpoint Forensics</label>
+                                        <input name="EP" [(ngModel)]="EP" type="number" class="form-control">
+                                    </div>
+                                    <!--Ziften  -->
+                                    <h2 class="text-header">Ziften</h2>
+                                    <div class="form-group col-md-4">
+                                        <label>New Connection to a Suspicious Destination</label>
+                                        <input name="suspiciousDestination" [(ngModel)]="suspiciousDestination" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Suspicious binaries over time</label>
+                                        <input name="suspiciousBinariesOT" [(ngModel)]="suspiciousBinariesOT" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>New Suspicious Binary has been Executed</label>
+                                        <input name="newSuspiciousBinary" [(ngModel)]="newSuspiciousBinary" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>New Vulnerable File was Executed</label>
+                                        <input name="newVulnerableFile" [(ngModel)]="newVulnerableFile" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Vulnerable File was Found</label>
+                                        <input name="vulnerableFileWasFound" [(ngModel)]="vulnerableFileWasFound" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>vulnerable binaries</label>
+                                        <input name="vulnerableBinaries" [(ngModel)]="vulnerableBinaries" type="number" class="form-control">
+                                    </div>
+                                    <!--findings (Type) -->
+                                    <h2 class="text-header">Findings (Type)</h2>
+                                    <div class="form-group col-md-4">
+                                        <label>Adware/Unwanted Program</label>
+                                        <input name="adware" [(ngModel)]="adware" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Virus</label>
+                                        <input name="virus" [(ngModel)]="virus" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Malicious Emails</label>
+                                        <input name="mail" [(ngModel)]="mail" type="number" class="form-control">
+                                    </div>
+                        
+                                    <h2 class="text-header">Findings (Source)</h2>
+                                    <div class="form-group col-md-3">
+                                        <label>Tps</label>
+                                        <input name="tpsFindings" [(ngModel)]="tpsFindings" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>McAfee</label>
+                                        <input name="mcafeeFindings" [(ngModel)]="mcafeeFindings" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>Ziften</label>
+                                        <input name="ziftenFindings" [(ngModel)]="ziftenFindings" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>User</label>
+                                        <input name="userFindings" [(ngModel)]="userFindings" type="number" class="form-control">
+                                    </div>
+                                    <h2>Date</h2>
+                                    <div class="form-group col-md-12">
+                                        <label>Date</label>
+                                        <input [disabled]="true" name="date" [(ngModel)]="date" placeholder="*If not inserted, today's date will be set"  class="form-control">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button type="button" (click)="preview()" class="btn btn-primary">Preview</button>
+                                        <button type="submit" class="btn btn-danger">Submit</button>
+                                    </div>
+                                    <!--row  -->
+                                </div>
+                                <!--form  -->
+                            </form>
+                        </div>
+                <div class="tab-pane fade" id="edit">
+                    <h2 class="text-header">Select a date to edit</h2>
+                    <div class="form-group-col-md-12">
+                            <select [(ngModel)]="selectedDate" class="form-control selected-date" (change)="selectDate()">
+                                    <option *ngFor = "let date of dates">{{date}}</option>
+                            </select>
+                            <button (click)="clearReport()" style="margin-top:10px;" class="btn btn-primary">Clear report data</button>
+                            <button (click)="deleteReport()" style="margin-top:10px;" class="btn btn-danger">Delete report</button>
+
+                    </div>
+                 
+                        <form (ngSubmit)="submit(event)">
+                                <div class="row">
+                                
+                                    <!--All systems  -->
+                                    <h2 class="text-header">All System</h2>
+                                    <div class="form-group col-md-3">
+                                        <label>McAfee</label>
+                                        <input name="mcafee" [(ngModel)]="mcafee" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>Teknas</label>
+                                        <input name="teknas" [(ngModel)]="teknas" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>Service Now / User</label>
+                                        <input name="snow" [(ngModel)]="snow" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>Umbrella</label>
+                                        <input name="umbrella" [(ngModel)]="umbrella" type="number" class="form-control">
+                                    </div>
+                                    <!--TPS  -->
+                                    <h2 class="text-header">TPS</h2>
+                                    <div class="form-group col-md-4">
+                                        <label>C&C (Reputation list)</label>
+                                        <input name="reputationList" [(ngModel)]="reputationList" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>C&C (Behavioral Analysis)</label>
+                                        <input name="behavioral" [(ngModel)]="behavioral" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>C&C (DGA)</label>
+                                        <input name="DGA" [(ngModel)]="DGA" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>File Analysis</label>
+                                        <input name="fileAnalysis" [(ngModel)]="fileAnalysis" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Lateral Movement</label>
+                                        <input name="LM" [(ngModel)]="LM" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Endpoint Forensics</label>
+                                        <input name="EP" [(ngModel)]="EP" type="number" class="form-control">
+                                    </div>
+                                    <!--Ziften  -->
+                                    <h2 class="text-header">Ziften</h2>
+                                    <div class="form-group col-md-4">
+                                        <label>New Connection to a Suspicious Destination</label>
+                                        <input name="suspiciousDestination" [(ngModel)]="suspiciousDestination" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Suspicious binaries over time</label>
+                                        <input name="suspiciousBinariesOT" [(ngModel)]="suspiciousBinariesOT" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>New Suspicious Binary has been Executed</label>
+                                        <input name="newSuspiciousBinary" [(ngModel)]="newSuspiciousBinary" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>New Vulnerable File was Executed</label>
+                                        <input name="newVulnerableFile" [(ngModel)]="newVulnerableFile" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Vulnerable File was Found</label>
+                                        <input name="vulnerableFileWasFound" [(ngModel)]="vulnerableFileWasFound" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>vulnerable binaries</label>
+                                        <input name="vulnerableBinaries" [(ngModel)]="vulnerableBinaries" type="number" class="form-control">
+                                    </div>
+                                    <!--findings (Type) -->
+                                    <h2 class="text-header">Findings (Type)</h2>
+                                    <div class="form-group col-md-4">
+                                        <label>Adware/Unwanted Program</label>
+                                        <input name="adware" [(ngModel)]="adware" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Virus</label>
+                                        <input name="virus" [(ngModel)]="virus" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Malicious Emails</label>
+                                        <input name="mail" [(ngModel)]="mail" type="number" class="form-control">
+                                    </div>
+                        
+                                    <h2 class="text-header">Findings (Source)</h2>
+                                    <div class="form-group col-md-3">
+                                        <label>Tps</label>
+                                        <input name="tpsFindings" [(ngModel)]="tpsFindings" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>McAfee</label>
+                                        <input name="mcafeeFindings" [(ngModel)]="mcafeeFindings" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>Ziften</label>
+                                        <input name="ziftenFindings" [(ngModel)]="ziftenFindings" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>User</label>
+                                        <input name="userFindings" [(ngModel)]="userFindings" type="number" class="form-control">
+                                    </div>
+                                    <h2>Date</h2>
+                                    <div class="form-group col-md-12">
+                                        <label>Date</label>
+                                        <input [disabled]="true" name="date" [(ngModel)]="selectedDate"  class="form-control">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button type="button" (click)="preview()" class="btn btn-primary">Preview</button>
+                                        <button type="submit" class="btn btn-danger">Submit</button>
+                                    </div>
+                                    <!--row  -->
+                                </div>
+                                <!--form  -->
+                            </form>
+                 </div>
+         </div>
 
     <!--container  -->
 </div>

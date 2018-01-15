@@ -2,7 +2,7 @@
     <link id="theme" rel="stylesheet" type="text/css" href="/assets/themes/superhero.css">
     </head>
 
-<nav id="navbar" class="navbar navbar-default navbar-fixed-top">
+<nav data-dismiss="modal" id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
@@ -17,7 +17,8 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
         <ul class="nav navbar-nav">
             <li><a (click)='showCharts()' ><i class="fa fa-bar-chart fa-lg" aria-hidden="true"></i>Charts</a></li>       
-            <li><a (click)='showTrending()'><i class="fa fa-table fa-lg" aria-hidden="true"></i>Trending</a></li>       
+            <li><a (click)='showTrending()'><i class="fa fa-table fa-lg" aria-hidden="true"></i>Trending</a></li>  
+            <li><a (click)='openModal()'><i class="fa fa-th-list fa-lg" aria-hidden="true"></i>SOC Incidents</a></li>            
           </ul>
           <ul class="nav navbar-nav navbar-right">
               <li><a (click)='login()'><i class="fa fa-sign-in fa-lg" aria-hidden="true"></i>Admin Login</a></li>            
@@ -30,3 +31,8 @@
       </div>
     </div>
   </nav>
+
+  <div class="modal fade bd-example-modal-lg" #modal tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <app-incident></app-incident>
+    </div>
+    

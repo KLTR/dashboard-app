@@ -1,6 +1,5 @@
-//--------------------------------Connect to mongodb on mLab via Mongoose--------------------------------//
-const consts = require('./consts'),
-mongoose = require('mongoose');
+//--------------------------------Connect to mongodb on main DB via Mongoose--------------------------------//
+const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 //The server option auto_reconnect is defaulted to true
 var options = {
@@ -9,8 +8,7 @@ var options = {
         useMongoClient:true,
     }
 };
-
-mongoose.connect(consts.MLAB_KEY, options);
+mongoose.connect('mongodb://localhost:27017/main', options);
 const conn = mongoose.connection;//get default connection
 
 // Event handlers for Mongoose

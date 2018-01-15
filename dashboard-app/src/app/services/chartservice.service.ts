@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 export class Chartservice {
   headers: Headers;
   options: RequestOptions;
-  APIUrl: string = "https://vdashboard.herokuapp.com";
+  APIUrl: string = "http://tlvpsecdash1.verint.corp.verintsystems.com:3001";
   
   constructor(private http: Http) {
     this.headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
@@ -30,7 +30,10 @@ getAllReports = function(){
   return this.http.get(`${this.APIUrl}/getAllReports`)
   .map(res => res.json());
 }
-
+deleteReport = function(date){
+  return this.http.get(`${this.APIUrl}/deleteReport/${date}`)
+  .map(res => res.json());
+}
 getReportByDate = function(date){
   return this.http.get(`${this.APIUrl}/getReportByDate/${date}`)
   .map(function(res){
@@ -38,7 +41,6 @@ getReportByDate = function(date){
   });
 }
 getFindingIncident(label, key, date){
-  console.log(label + ' ' + date)
   if(key == 'source'){
     return this.http.get(`$this.APIUrl}/getIncidentBySource/${label}/${date}`)
     .map(function(res){
@@ -78,6 +80,7 @@ sendReport = function(
   _adware,
   _virus,
   _mail,
+  _date
   ){
   return this.http.post(`${this.APIUrl}/enterNewReport` , {
    jobId: _jobId,
@@ -104,6 +107,7 @@ sendReport = function(
    adware: _adware,
    virus: _virus,
    mail: _mail,
+   date: _date
   })
   .map(function(res){
      res.json();

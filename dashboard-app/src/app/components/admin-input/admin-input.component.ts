@@ -15,6 +15,7 @@ private sourceFlag = true;
 private rawTpsFlag;
 private findingsFlag;
 private chartsFlag = false;
+private date: Date;
 // Dougnut chart 
 public doughnutChartLabels:string[] = ['TPS', 'Ziften', 'McAfee', 'Teknas','Service-Now/User','Umbrella'];
 public doughnutChartData:number[];
@@ -77,6 +78,9 @@ private pieChartDataTypeArr : number[];
  public pieChartTypeSrc:string = 'pie';
  private pieChartDataSrcArr: number[];
 
+   // dates
+   public dates: string[];
+   public selectedDate: string;
 // charts
 // doughnut of all systems 
   constructor(
@@ -85,9 +89,13 @@ private pieChartDataTypeArr : number[];
     private flashMessage: FlashMessagesService) { }
 
   ngOnInit() {
+    this.chartService.getAllReports().subscribe(dates => {
+      this.dates = dates;
+      this.selectedDate = dates[0];       
+  });
     // JOBID
  this.jobId = '';
-
+ this.date = null;
  this.reputationList = 0;
  this.behavioral = 0;
  this.DGA = 0
@@ -163,6 +171,94 @@ public barChartOptionsType:any = {
     this.sendDataToService();
 
   }
+  toggleFlags(){
+    this.chartsFlag = !this.chartsFlag;
+    this.rawTpsFlag = !this.rawTpsFlag;
+    this.sourceFlag = !this.sourceFlag;
+    this.typeFlag = !this.typeFlag;
+    this.findingsFlag = !this.findingsFlag
+  }
+  clearReport(){
+    this.chartsFlag = false;
+    this.rawTpsFlag = false;
+    this.sourceFlag = false;
+    this.typeFlag = false;
+    this.findingsFlag = false;
+    this.reputationList = 0;
+    this.behavioral = 0;
+    this.DGA = 0;
+    this.fileAnalysis = 0;
+    this.LM = 0;
+    this.EP = 0;
+    this.mcafee = 0;
+    this.snow = 0;
+    this.teknas = 0;
+    this.suspiciousDestination = 0;
+    this.suspiciousBinariesOT = 0;
+    this.newSuspiciousBinary =0 ;
+    this.vulnerableFileWasFound = 0;
+    this.newVulnerableFile = 0;
+    this.vulnerableBinaries = 0;
+    this.umbrella = 0;
+    this.tpsFindings = 0;
+    this.ziftenFindings = 0;
+    this.mcafeeFindings =0;
+    this.userFindings = 0;
+    this.adware = 0;
+    this.virus = 0;
+    this.mail = 0;
+    this.chartsFlag = true;
+    this.calcTps();
+    this.calcZiften();
+    this.createBarChart();
+    this.allSysArray =  [this.tps,this.ziften,this.mcafee,this.teknas,this.snow,this.umbrella];
+    this.createDoughnutForSource();
+    this.createBarForRawTps();
+    this.createDoughnutForRawTps();
+    this.createChartsForType();
+    this.createPieChartsForFindings();
+  }
+  selectDate(){
+    this.chartService.getReportByDate(this.selectedDate).subscribe( report => {
+     // 
+     report = report[0];
+     this.jobId = report.jobId;
+     this.reputationList = report.reputationList;
+     this.behavioral = report.behavioral
+     this.DGA = report.DGA
+     this.fileAnalysis = report.fileAnalysis
+     this.LM = report.LM
+     this.EP = report.EP
+     this.mcafee = report.mcafee
+     this.snow = report.snow
+     this.teknas = report.teknas
+     this.suspiciousDestination = report.suspiciousDestination
+     this.suspiciousBinariesOT = report.suspiciousBinariesOT
+     this.newSuspiciousBinary = report.newSuspiciousBinary
+     this.vulnerableFileWasFound = report.vulnerableFileWasFound;
+     this.newVulnerableFile = report.newVulnerableFile
+     this.vulnerableBinaries = report.vulnerableBinaries
+     this.umbrella = report.umbrella;
+     this.tpsFindings = report.tpsFindings;
+     this.ziftenFindings = report.ziftenFindings ;
+     this.mcafeeFindings = report.mcafeeFindings;
+     this.userFindings = report.userFindings;
+     this.adware = report.adware;
+     this.virus = report.virus;
+     this.mail = report.mail;
+     this.chartsFlag = true;
+     this.calcTps();
+     this.calcZiften();
+     this.createBarChart();
+     this.allSysArray =  [this.tps,this.ziften,this.mcafee,this.teknas,this.snow,this.umbrella];
+     this.createDoughnutForSource();
+     this.createBarForRawTps();
+     this.createDoughnutForRawTps();
+     this.createChartsForType();
+     this.createPieChartsForFindings();
+ 
+    });
+  }
   sendDataToService(){
     this.chartService.sendReport(
       this.jobId,      
@@ -189,14 +285,63 @@ public barChartOptionsType:any = {
       this.adware,
       this.virus,
       this.mail,
+      this.date //yyyy-mm-dd
     ).subscribe( report => {
-      console.log("added new report");
       this.flashMessage.show("Report was successfully submitted, you are been redirected ...", {cssClass: 'alert-success', timeout: 3000});
       setTimeout((router: Router) => {
         this.router.navigate(['/user']);
     }, 3500);  //3.5
     });  
   }
+deleteReport = function(){
+  console.log(this.selectedDate);
+  this.chartService.deleteReport(this.selectedDate)
+  .subscribe(res => {
+    this.chartService.getAllReports().subscribe(dates => {
+      this.dates = dates;
+      this.selectedDate = dates[0]; 
+      this.chartService.getReportByDate(this.selectedDate).subscribe( report => {
+        // 
+        report = report[0];
+        this.jobId = report.jobId;
+        this.reputationList = report.reputationList;
+        this.behavioral = report.behavioral
+        this.DGA = report.DGA
+        this.fileAnalysis = report.fileAnalysis
+        this.LM = report.LM
+        this.EP = report.EP
+        this.mcafee = report.mcafee
+        this.snow = report.snow
+        this.teknas = report.teknas
+        this.suspiciousDestination = report.suspiciousDestination
+        this.suspiciousBinariesOT = report.suspiciousBinariesOT
+        this.newSuspiciousBinary = report.newSuspiciousBinary
+        this.vulnerableFileWasFound = report.vulnerableFileWasFound;
+        this.newVulnerableFile = report.newVulnerableFile
+        this.vulnerableBinaries = report.vulnerableBinaries
+        this.umbrella = report.umbrella;
+        this.tpsFindings = report.tpsFindings;
+        this.ziftenFindings = report.ziftenFindings ;
+        this.mcafeeFindings = report.mcafeeFindings;
+        this.userFindings = report.userFindings;
+        this.adware = report.adware;
+        this.virus = report.virus;
+        this.mail = report.mail;
+        this.chartsFlag = true;
+        this.calcTps();
+        this.calcZiften();
+        this.createBarChart();
+        this.allSysArray =  [this.tps,this.ziften,this.mcafee,this.teknas,this.snow,this.umbrella];
+        this.createDoughnutForSource();
+        this.createBarForRawTps();
+        this.createDoughnutForRawTps();
+        this.createChartsForType();
+        this.createPieChartsForFindings();
+    
+       });      
+  });
+  });
+}
   calcTps = function(){
     this.tps = this.reputationList + this.behavioral + this.DGA + this.fileAnalysis + this.LM + this.EP;
     this.tpsRawAlerts = [this.reputationList, this.behavioral, this.DGA, this.fileAnalysis, this.LM, this.EP];

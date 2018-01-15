@@ -1,17 +1,26 @@
 
-  <div class="modal-dialog modal-lg">
+  <div  id="modal" class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Incidents Created This Week<span class="badge bg-primary">{{incidentIndex}}</span></h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+         
+        <h4 class="modal-title">Incidents Created During week :
+           <span class="badge bg-primary">{{snowIncidents?.length}}</span>
+         <select [(ngModel)]="selectedDate" class="form-control selected-date" (change)="selectDate()">
+            <option *ngFor = "let date of dates">{{date}}</option>
+           </select>
+         </h4>
+       
       </div>
+       
+
       <div *ngIf = 'snowIncidents?.length > 0 ' class="modal-body">
         
         <div *ngFor='let inc of snowIncidents' class="incident">
           <div class="img-box">
               <a class="btn btn-default" target="blank" href="{{inc.link}}">
                 <img src="../../../assets/images/snow-logo2.png"></a> 
-                <span *ngIf = 'inc?.num'>{{inc.num}}</span>
+                <span *ngIf = 'inc?.incNum'>{{inc.incNum}}</span>
           </div>
           <div class="text-box">
               <span *ngIf = 'inc?.date'>
