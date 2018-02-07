@@ -5,8 +5,8 @@ const mongoose = require('mongoose'),
       http = require('http'),
       request = require('request'),
       xml2js = require('xml2js'),
-      Incident = require('./../models/incident');
-      //nodemailer = require("nodemailer");
+      Incident = require('./../models/incident'),
+      nodemailer = require("nodemailer");
 
 class Dashboard {
 
@@ -158,25 +158,26 @@ class Dashboard {
                     if (err)
                         console.log(err);
                     else {
-                        //@ToDo 15/1/2017 -- update SMTP data
+                        //@ToDo 15/1/2017 -- update in production, hidden for TEST
                         // Use Smtp Protocol to send Email
                         // let transporter = nodemailer.createTransport({
-                        //         host: 'verint.mail.onmicrosoft.com',
-                        //         port: 465,
-                        //         secure: true, // true for 465, false for other ports
+                        //         host: 'tlvsmtp.verint.corp.verintsystems.com',
+                        //         port: 25,
+                        //         secure: false, // true for 465, false for other ports
+                        //         tls: {rejectUnauthorized: false}, //cancel SSL cert
                         //         auth: {
                         //             user: 'soc@verint.com', // generated ethereal user
-                        //             pass: 'socpassword!'  // generated ethereal password
+                        //             pass: 'Welcome1!'  // generated ethereal password
                         //         }
                         //     });
 
                         //     // setup email data with unicode symbols
                         //     let mailOptions = {
                         //         from: '"SOC Report" <SOC@verint.com>', // sender address
-                        //         to: 'somegroup@verint.com', // list of receivers
+                        //         to: 'liran.kappel@verint.com, isaac.shahar@verint.com, david.belder@verint.com, tlv_soc@verint.com', // list of receivers
                         //         subject: `SOC report for the week of ${newReport.date}`, // Subject line
                         //         text: 'Hello Team,\nNew report is available at tlvpsecdash1.verint.corp.verintsystems.com:8200', // plain text body
-                        //         html: output // html body
+                        //         html: 'Hello Team,<br><br>New report is available, please login to <a href="http://tlvpsecdash1.verint.corp.verintsystems.com:8200"/>soc dashboard</a> via Chrome to view it.<br><br>Regards,<br>Operational Dashboard.' // html body
                         //     };
 
                         //     // send mail with defined transport object
