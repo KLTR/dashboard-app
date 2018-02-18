@@ -72,13 +72,16 @@ sendReport = function(
   _newVulnerableFile,
   _vulnerableFileWasFound,
   _vulnerableBinaries,
-  _umbrella,
   _tpsFindings,
   _ziftenFindings,
   _mcafeeFindings,
   _userFindings,
+  _umbrellaFindings,
+  _cymmetriaFindings,
   _adware,
   _virus,
+  _trojan,
+  _ransomware,
   _mail,
   _date
   ){
@@ -99,21 +102,88 @@ sendReport = function(
    newVulnerableFile: _newVulnerableFile,
    vulnerableFileWasFound: _vulnerableFileWasFound,
    vulnerableBinaries: _vulnerableBinaries,
-   umbrella: _umbrella,
    tpsFindings: _tpsFindings,
    ziftenFindings: _ziftenFindings,
    mcafeeFindings: _mcafeeFindings,
    userFindings: _userFindings,
+   umbrellaFindings: _umbrellaFindings,
+   cymmetriaFindings: _cymmetriaFindings,
    adware: _adware,
    virus: _virus,
+   trojan: _trojan,
+   ransomware: _ransomware,
    mail: _mail,
    date: _date
   })
   .map(function(res){
      res.json();
   });
+ }
 
-
+//update report
+updateReport = function(
+  _jobId,
+  _reputationList,
+  _behavioral,
+  _DGA,
+  _fileAnalysis,
+  _LM, 
+  _EP,
+  _mcafee,
+  _snow,
+  _teknas,
+  _suspiciousDestination,
+  _suspiciousBinariesOT,
+  _newSuspiciousBinary ,
+  _newVulnerableFile,
+  _vulnerableFileWasFound,
+  _vulnerableBinaries,
+  _tpsFindings,
+  _ziftenFindings,
+  _mcafeeFindings,
+  _userFindings,
+  _umbrellaFindings,
+  _cymmetriaFindings,
+  _adware,
+  _virus,
+  _trojan,
+  _ransomware,
+  _mail,
+  _date
+  ){
+  return this.http.post(`${this.APIUrl}/updateReport` , {
+    jobId: _jobId,
+   reputationList:_reputationList,
+   behavioral: _behavioral,
+   DGA: _DGA,
+   fileAnalysis: _fileAnalysis,
+   LM: _LM,
+   EP: _EP,
+   mcafee: _mcafee,
+   snow: _snow,
+   teknas: _teknas,
+   suspiciousDestination: _suspiciousDestination,
+   suspiciousBinariesOT: _suspiciousBinariesOT,
+   newSuspiciousBinary: _newSuspiciousBinary ,
+   newVulnerableFile: _newVulnerableFile,
+   vulnerableFileWasFound: _vulnerableFileWasFound,
+   vulnerableBinaries: _vulnerableBinaries,
+   tpsFindings: _tpsFindings,
+   ziftenFindings: _ziftenFindings,
+   mcafeeFindings: _mcafeeFindings,
+   userFindings: _userFindings,
+   umbrellaFindings: _umbrellaFindings,
+   cymmetriaFindings: _cymmetriaFindings,
+   adware: _adware,
+   virus: _virus,
+   mail: _mail,
+   trojan: _trojan,
+   ransomware: _ransomware,
+   date: _date
+  })
+  .map(function(res){
+    res.json();
+  });
  }
 
 }

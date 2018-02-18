@@ -23,18 +23,18 @@ module.exports = class incident{
       if(state == '8'){
         state = 'Canceled';
       }
-    this.link = `https://verint.service-now.com/nav_to.do?uri=%2Fincident.do%3Fsys_id%3D${sys_id}%26sysparm_stack%3D%26sysparm_view%3D`;
-    if(incNum){
-      this.incNum = incNum;
-    }else{
-      this.incNum = 'Unavailable'
-    }
-    if(date){
-      this.date = date[0].slice(0,10);
-    }else{
-      this.date = 'Unavailable'
-    }
-    if(state){
+      this.link = `https://verint.service-now.com/nav_to.do?uri=%2Fincident.do%3Fsys_id%3D${sys_id}%26sysparm_stack%3D%26sysparm_view%3D`;
+      if(incNum){
+        this.incNum = incNum;
+      }else{
+        this.incNum = 'Unavailable'
+      }
+      if(date){
+        this.date = date[0].slice(0,10);
+      }else{
+        this.date = 'Unavailable'
+      }
+      if(state){
       this.state = state;
       if(state == 'New'){
         this.label = 'label-info'

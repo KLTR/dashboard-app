@@ -30,7 +30,6 @@ export class IncidentComponent implements OnInit {
   selectDate(){
     this.chartService.getReportByDate(this.selectedDate).subscribe( report => {
       this.snowIncidents = report[0].snowIncidents;
-      console.log(this.snowIncidents);
     })
   }
 

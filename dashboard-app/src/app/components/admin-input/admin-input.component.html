@@ -26,11 +26,9 @@
                                         <label>Service Now / User</label>
                                         <input name="snow" [(ngModel)]="snow" type="number" class="form-control">
                                     </div>
-                                    <div class="form-group col-md-3">
-                                        <label>Umbrella</label>
-                                        <input name="umbrella" [(ngModel)]="umbrella" type="number" class="form-control">
-                                    </div>
+                                </div>
                                     <!--TPS  -->
+                                    <div class="row">
                                     <h2 class="text-header">TPS</h2>
                                     <div class="form-group col-md-4">
                                         <label>C&C (Reputation list)</label>
@@ -56,8 +54,11 @@
                                         <label>Endpoint Forensics</label>
                                         <input name="EP" [(ngModel)]="EP" type="number" class="form-control">
                                     </div>
+                                </div>
                                     <!--Ziften  -->
+                                    <div class="row">
                                     <h2 class="text-header">Ziften</h2>
+
                                     <div class="form-group col-md-4">
                                         <label>New Connection to a Suspicious Destination</label>
                                         <input name="suspiciousDestination" [(ngModel)]="suspiciousDestination" type="number" class="form-control">
@@ -82,10 +83,12 @@
                                         <label>vulnerable binaries</label>
                                         <input name="vulnerableBinaries" [(ngModel)]="vulnerableBinaries" type="number" class="form-control">
                                     </div>
+                                </div>
                                     <!--findings (Type) -->
+                                    <div class="row">
                                     <h2 class="text-header">Findings (Type)</h2>
                                     <div class="form-group col-md-4">
-                                        <label>Adware/Unwanted Program</label>
+                                        <label>Adware/Unwanted Programs</label>
                                         <input name="adware" [(ngModel)]="adware" type="number" class="form-control">
                                     </div>
                                     <div class="form-group col-md-4">
@@ -96,24 +99,43 @@
                                         <label>Malicious Emails</label>
                                         <input name="mail" [(ngModel)]="mail" type="number" class="form-control">
                                     </div>
-                        
+                                    <div class="form-group col-md-4">
+                                            <label>Trojans</label>
+                                            <input name="trojan" [(ngModel)]="trojan" type="number" class="form-control">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                                <label>Ransomwares</label>
+                                                <input name="ransomware" [(ngModel)]="ransomware" type="number" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="row">
                                     <h2 class="text-header">Findings (Source)</h2>
-                                    <div class="form-group col-md-3">
+                                    <div class="form-group col-md-2">
                                         <label>Tps</label>
                                         <input name="tpsFindings" [(ngModel)]="tpsFindings" type="number" class="form-control">
                                     </div>
-                                    <div class="form-group col-md-3">
+                                    <div class="form-group col-md-2">
                                         <label>McAfee</label>
                                         <input name="mcafeeFindings" [(ngModel)]="mcafeeFindings" type="number" class="form-control">
                                     </div>
-                                    <div class="form-group col-md-3">
+                                    <div class="form-group col-md-2">
                                         <label>Ziften</label>
                                         <input name="ziftenFindings" [(ngModel)]="ziftenFindings" type="number" class="form-control">
                                     </div>
-                                    <div class="form-group col-md-3">
+                                    <div class="form-group col-md-2">
                                         <label>User</label>
                                         <input name="userFindings" [(ngModel)]="userFindings" type="number" class="form-control">
                                     </div>
+                                    <div class="form-group col-md-2">
+                                            <label>Umbrella</label>
+                                            <input name="umbrellaFindings" [(ngModel)]="umbrellaFindings" type="number" class="form-control">
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                                <label>Cymmetria</label>
+                                                <input name="cymmetriaFindings" [(ngModel)]="cymmetriaFindings" type="number" class="form-control">
+                                            </div>
+                                        </div>
+
                                     <h2>Date</h2>
                                     <div class="form-group col-md-12">
                                         <label>Date</label>
@@ -124,7 +146,6 @@
                                         <button type="submit" class="btn btn-danger">Submit</button>
                                     </div>
                                     <!--row  -->
-                                </div>
                                 <!--form  -->
                             </form>
                         </div>
@@ -139,9 +160,11 @@
 
                     </div>
                  
-                        <form (ngSubmit)="submit(event)">
+                        <form (ngSubmit)="update(event)">
                                 <div class="row">
-                                
+<!--                                     <h2>Job Id</h2>
+                                    <label>Splunk Job Id</label>
+                                    <input  required name="jobId" [(ngModel)]="jobId" type="text" class="form-control"> -->
                                     <!--All systems  -->
                                     <h2 class="text-header">All System</h2>
                                     <div class="form-group col-md-3">
@@ -156,11 +179,9 @@
                                         <label>Service Now / User</label>
                                         <input name="snow" [(ngModel)]="snow" type="number" class="form-control">
                                     </div>
-                                    <div class="form-group col-md-3">
-                                        <label>Umbrella</label>
-                                        <input name="umbrella" [(ngModel)]="umbrella" type="number" class="form-control">
-                                    </div>
+                                </div>
                                     <!--TPS  -->
+                                    <div class="row">
                                     <h2 class="text-header">TPS</h2>
                                     <div class="form-group col-md-4">
                                         <label>C&C (Reputation list)</label>
@@ -186,8 +207,11 @@
                                         <label>Endpoint Forensics</label>
                                         <input name="EP" [(ngModel)]="EP" type="number" class="form-control">
                                     </div>
+                                </div>
                                     <!--Ziften  -->
+                                    <div class="row">
                                     <h2 class="text-header">Ziften</h2>
+
                                     <div class="form-group col-md-4">
                                         <label>New Connection to a Suspicious Destination</label>
                                         <input name="suspiciousDestination" [(ngModel)]="suspiciousDestination" type="number" class="form-control">
@@ -212,10 +236,12 @@
                                         <label>vulnerable binaries</label>
                                         <input name="vulnerableBinaries" [(ngModel)]="vulnerableBinaries" type="number" class="form-control">
                                     </div>
+                                </div>
                                     <!--findings (Type) -->
+                                    <div class="row">
                                     <h2 class="text-header">Findings (Type)</h2>
                                     <div class="form-group col-md-4">
-                                        <label>Adware/Unwanted Program</label>
+                                        <label>Adware/Unwanted Programs</label>
                                         <input name="adware" [(ngModel)]="adware" type="number" class="form-control">
                                     </div>
                                     <div class="form-group col-md-4">
@@ -226,35 +252,53 @@
                                         <label>Malicious Emails</label>
                                         <input name="mail" [(ngModel)]="mail" type="number" class="form-control">
                                     </div>
-                        
+                                    <div class="form-group col-md-4">
+                                            <label>Trojans</label>
+                                            <input name="trojan" [(ngModel)]="trojan" type="number" class="form-control">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                                <label>Ransomwares</label>
+                                                <input name="ransomware" [(ngModel)]="ransomware" type="number" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="row">
                                     <h2 class="text-header">Findings (Source)</h2>
-                                    <div class="form-group col-md-3">
+                                    <div class="form-group col-md-2">
                                         <label>Tps</label>
                                         <input name="tpsFindings" [(ngModel)]="tpsFindings" type="number" class="form-control">
                                     </div>
-                                    <div class="form-group col-md-3">
+                                    <div class="form-group col-md-2">
                                         <label>McAfee</label>
                                         <input name="mcafeeFindings" [(ngModel)]="mcafeeFindings" type="number" class="form-control">
                                     </div>
-                                    <div class="form-group col-md-3">
+                                    <div class="form-group col-md-2">
                                         <label>Ziften</label>
                                         <input name="ziftenFindings" [(ngModel)]="ziftenFindings" type="number" class="form-control">
                                     </div>
-                                    <div class="form-group col-md-3">
+                                    <div class="form-group col-md-2">
                                         <label>User</label>
                                         <input name="userFindings" [(ngModel)]="userFindings" type="number" class="form-control">
                                     </div>
+                                    <div class="form-group col-md-2">
+                                            <label>Umbrella</label>
+                                            <input name="umbrellaFindings" [(ngModel)]="umbrellaFindings" type="number" class="form-control">
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                                <label>Cymmetria</label>
+                                                <input name="cymmetriaFindings" [(ngModel)]="cymmetriaFindings" type="number" class="form-control">
+                                            </div>
+                                        </div>
+
                                     <h2>Date</h2>
                                     <div class="form-group col-md-12">
                                         <label>Date</label>
-                                        <input [disabled]="true" name="date" [(ngModel)]="selectedDate"  class="form-control">
+                                        <input [disabled]="true" name="date" [(ngModel)]="selectedDate" placeholder="*If not inserted, today's date will be set"  class="form-control">
                                     </div>
                                     <div class="col-md-4">
                                         <button type="button" (click)="preview()" class="btn btn-primary">Preview</button>
                                         <button type="submit" class="btn btn-danger">Submit</button>
                                     </div>
                                     <!--row  -->
-                                </div>
                                 <!--form  -->
                             </form>
                  </div>

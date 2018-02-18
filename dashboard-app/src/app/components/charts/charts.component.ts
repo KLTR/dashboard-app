@@ -27,7 +27,7 @@ export class ChartsComponent implements OnInit {
   private dates: string[];
   public selectedDate: string;
   // Dougnut chart
-  public doughnutChartLabels: string[] = ['TPS', 'Ziften', 'McAfee', 'Teknas', 'Service-Now/User', 'Umbrella'];
+  public doughnutChartLabels: string[] = ['TPS', 'Ziften', 'McAfee', 'Teknas', 'Service-Now/User'];
   public doughnutChartData: number[];
   public doughnutChartType = 'doughnut';
   
@@ -46,8 +46,9 @@ export class ChartsComponent implements OnInit {
   private tps: number;
   private ziften: number;
   private mcafee: number;
-  private teknas: number;private snow: number;
-  private umbrella: number;
+  private teknas: number;
+  private snow: number;
+  private cymmetria: number;
   private allSysArray: number[] ;
   private rawTpsDoughnutArr: number[];
   
@@ -72,18 +73,21 @@ export class ChartsComponent implements OnInit {
   private adware: number;
   private virus: number;
   private mail: number;
+  private trojan: number;
+  private ransomware: number;
   // Source
   private tpsFindings: number;
   private mcafeeFindings: number;
   private ziftenFindings: number;
   private userFindings: number;
-  
+  private cymmetriaFindings: number;
+  private umbrellaFindings: number;
   // findings pie charts:
-   public pieChartLabelsType: string[] = ['Adware/Unwanted Program', 'Virus', 'Malicious Emails'];
+   public pieChartLabelsType: string[] = ['Adware/Unwanted Program', 'Virus', 'Emails & External attacks', 'Trojan', 'Ransomware'];
    public pieChartDataType: number[] ;
    public pieChartTypeType = 'pie';
   private pieChartDataTypeArr: number[];
-    public pieChartLabelsSrc: string[] = ['TPS', 'McAfee', 'Ziften', 'User'];
+    public pieChartLabelsSrc: string[] = ['TPS', 'McAfee', 'Ziften', 'User', 'Umbrella', 'Cymmetria'];
    public pieChartDataSrc: number[] ;
    public pieChartTypeSrc = 'pie';
    private pieChartDataSrcArr: number[];
@@ -92,7 +96,7 @@ export class ChartsComponent implements OnInit {
     scaleShowVerticalLines: false,
     responsive: true
   };
-  public barChartLabels: string[] = ['TPS', 'Ziften', 'McAfee', 'Teknas', 'Service-Now/User','Umbrella'];
+  public barChartLabels: string[] = ['TPS', 'Ziften', 'McAfee', 'Teknas', 'Service-Now/User'];
   public barChartType = 'bar';
   public barChartLegend = true;
   
@@ -149,15 +153,19 @@ export class ChartsComponent implements OnInit {
       this.mcafeeFindings = report.mcafeeFindings;
       this.ziftenFindings = report.ziftenFindings ;
       this.userFindings = report.userFindings;
+      this.umbrellaFindings = report.umbrellaFindings;
+      this.cymmetriaFindings = report.cymmetriaFindings;
       // Findings by type
       this.adware = report.adware;
       this.virus = report.virus;
       this.mail = report.mail;
+      this.trojan = report.trojan;
+      this.ransomware = report.ransomware;
       // Sources
       this.mcafee = report.mcafee;
       this.snow = report.snow;
       this.teknas = report.teknas;
-      this.umbrella = report.umbrella;
+
       // Types
       this.suspiciousDestination = report.suspiciousDestination;
       this.suspiciousBinariesOT = report.suspiciousBinariesOT;
@@ -176,7 +184,7 @@ export class ChartsComponent implements OnInit {
       this.calcTps();
       this.calcZiften();
       this.createBarChart();
-      this.allSysArray =  [this.tps, this.ziften, this.mcafee, this.teknas, this.snow, this.umbrella];
+      this.allSysArray =  [this.tps, this.ziften, this.mcafee, this.teknas, this.snow];
       this.createDoughnutForSource();
       this.createBarForRawTps();
       this.createDoughnutForRawTps();
@@ -202,25 +210,24 @@ export class ChartsComponent implements OnInit {
   
    createBarChart = function(){
     this.barChartData = [
-      {data: [this.tps, 0, 0, 0, 0,0], label: 'TPS'},
-      {data: [0, this.ziften, 0, 0, 0,0], label: 'Ziften'},
-      {data: [0, 0, this.mcafee, 0, 0,0], label: 'McAfee'},
-      {data: [0, 0, 0, this.teknas, 0 ,0], label: 'Teknas'},
-      {data: [0, 0, 0, 0, this.snow,0], label: 'Service-Now/User'},
-      {data: [0, 0, 0, 0, 0,this.umbrella], label: 'Umbrella'},
+      {data: [this.tps, 0, 0, 0, 0], label: 'TPS'},
+      {data: [0, this.ziften, 0, 0, 0], label: 'Ziften'},
+      {data: [0, 0, this.mcafee, 0, 0], label: 'McAfee'},
+      {data: [0, 0, 0, this.teknas, 0 ], label: 'Teknas'},
+      {data: [0, 0, 0, 0, this.snow], label: 'Service-Now/User'},
+
   
     ];
    }
   
   createBarForType = function(){
      this.barChartData = [
-      {data: [this.tps, 0, 0, 0, 0, 0], label: 'TPS'},
-      {data: [0, this.ziften, 0, 0, 0, 0], label: 'Ziften'},
-      {data: [0, 0, this.mcafee, 0, 0, 0], label: 'McAfee'},
-      {data: [0, 0, 0, this.teknas, 0 , 0], label: 'Teknas'},
-      {data: [0, 0, 0, 0, this.snow, 0], label: 'Service-Now/User'},
-      {data: [0, 0, 0, 0, 0, this.umbrella], label: 'Umbrella'},
-  
+      {data: [this.tps, 0, 0, 0, 0], label: 'TPS'},
+      {data: [0, this.ziften, 0, 0, 0], label: 'Ziften'},
+      {data: [0, 0, this.mcafee, 0, 0], label: 'McAfee'},
+      {data: [0, 0, 0, this.teknas, 0 ], label: 'Teknas'},
+      {data: [0, 0, 0, 0, this.snow], label: 'Service-Now/User'},
+
     ];
   };
   createBarForRawTps = function(){
@@ -251,8 +258,8 @@ export class ChartsComponent implements OnInit {
    }
   
     createPieChartsForFindings = function(){
-    this.pieChartDataSrcArr = [this.tpsFindings,this.mcafeeFindings,this.ziftenFindings,this.userFindings];
-    this.pieChartDataTypeArr = [this.adware, this.virus, this.mail];
+    this.pieChartDataSrcArr = [this.tpsFindings,this.mcafeeFindings,this.ziftenFindings,this.userFindings,this.umbrellaFindings,this.cymmetriaFindings];
+    this.pieChartDataTypeArr = [this.adware, this.virus, this.mail,this.trojan,this.ransomware];
     this.pieChartDataSrc = this.pieChartDataSrcArr;
     this.pieChartDataType = this.pieChartDataTypeArr;
     
@@ -279,19 +286,22 @@ export class ChartsComponent implements OnInit {
       this.vulnerableFileWasFound = report.vulnerableFileWasFound;
       this.newVulnerableFile = report.newVulnerableFile
       this.vulnerableBinaries = report.vulnerableBinaries
-      this.umbrella = report.umbrella;
       this.tpsFindings = report.tpsFindings;
       this.ziftenFindings = report.ziftenFindings ;
       this.mcafeeFindings = report.mcafeeFindings;
       this.userFindings = report.userFindings;
+      this.umbrellaFindings = report.umbrellaFindings,
+      this.cymmetriaFindings = report.cymmetriaFindings,
       this.adware = report.adware;
       this.virus = report.virus;
       this.mail = report.mail;
+      this.trojan = report.trojan,
+      this.ransomware = report.ransomware,
       this.chartsFlag = true;
       this.calcTps();
       this.calcZiften();
       this.createBarChart();
-      this.allSysArray =  [this.tps,this.ziften,this.mcafee,this.teknas,this.snow,this.umbrella];
+      this.allSysArray =  [this.tps,this.ziften,this.mcafee,this.teknas,this.snow];
       this.createDoughnutForSource();
       this.createBarForRawTps();
       this.createDoughnutForRawTps();

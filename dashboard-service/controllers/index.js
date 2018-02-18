@@ -13,6 +13,7 @@ class Dashboard {
 //--------------------------SERVICES FOR SPLUNK------------------------------------------//
     splunk(jobid) {
         return new Promise((resolve, reject) => {
+
             function createIncidents(incidents){
               var snowIncidents = [];  
               let state;
@@ -67,27 +68,36 @@ class Dashboard {
                 }
               }
               resolve(snowIncidents); 
-            } 
-            //request call
-            var options = { method: 'GET',
-              url: `https://splunk.verint.corp.verintsystems.com:8089/services/search/jobs/${jobid}/events`,
-              qs: { count: '1500' },
-              rejectUnauthorized: false, //cancel SSL cert
-              requestCert: true,
-              agent: false,
-              headers: 
-               { 'Cache-Control': 'no-cache',
-                 Authorization: 'Basic aXRzZXNpczp2bVZhYThucSE=',
-                 'access-control-allow-headers': '*',
-                 'Access-control-allow-origin': '*',
-                 'Content-Type': 'application/x-www-form-urlencoded' } };
+            }
 
-            request(options, function (error, response, body) {
-              if (error) throw new Error(error);
-               xml2js.parseString(body, (err, res) => {
-                    createIncidents(res);
-                });
-            });         
+            //request call
+            try {
+                var options = { method: 'GET',
+                url: `https://splunk.verint.corp.verintsystems.com:8089/services/search/jobs/${jobid}/events`,
+                qs: { count: '1500' },
+                rejectUnauthorized: false, //cancel SSL cert
+                requestCert: true,
+                agent: false,
+                headers: 
+                 { 'Cache-Control': 'no-cache',
+                   Authorization: 'Basic aXRzZXNpczp2bVZhYThucSE=',
+                   'access-control-allow-headers': '*',
+                   'Access-control-allow-origin': '*',
+                   'Content-Type': 'application/x-www-form-urlencoded' } };
+
+              request(options, function (error, response, body) {
+                if (error) throw new Error(error);
+                 xml2js.parseString(body, (err, res) => {
+                      try{
+                        createIncidents(res);
+                      }catch(err) {resolve(null)}
+                  });
+              }); 
+            } catch (err) {            
+                  //no jobid given will come here.
+                  resolve(null);  
+              }
+       
         });
     }
 //----------------------------END OF SPLUNK SERVICES---------------------------------//
@@ -113,13 +123,13 @@ class Dashboard {
         })
     }
 //--------------------------------END OF SNOW SERVICE-------------------------------------//
-    enterNewReport(_jobId, _mcafee, _teknas, _snow, _umbrella, _reputationList,
+    enterNewReport(_jobId, _mcafee, _teknas, _snow,_reputationList,
         _behavioral, _DGA, _fileAnalysis, _LM, _EP,
         _suspiciousDestination, _suspiciousBinariesOT,
         _newSuspiciousBinary, _newVulnerableFile,
         _vulnerableFileWasFound, _vulnerableBinaries,
-        _tpsFindings, _ziftenFindings, _mcafeeFindings,_userFindings,
-        _adware, _virus, _mail, _date) {
+        _tpsFindings, _ziftenFindings, _mcafeeFindings,_userFindings, _umbrellaFindings, _cymmetriaFindings,
+        _adware, _virus, _mail, _trojan, _ransomware, _date) {
         return new Promise((resolve, reject) => {
             this.splunk(_jobId).then((result, error) => {
                 if (error) throw new Error(error);
@@ -128,7 +138,6 @@ class Dashboard {
                     mcafee: _mcafee,
                     teknas: _teknas,
                     snow: _snow,
-                    umbrella: _umbrella,
                     reputationList: _reputationList,
                     behavioral: _behavioral,
                     DGA: _DGA,
@@ -145,14 +154,19 @@ class Dashboard {
                     ziftenFindings: _ziftenFindings,
                     mcafeeFindings: _mcafeeFindings,
                     userFindings: _userFindings,
+                    umbrellaFindings: _umbrellaFindings,
+                    cymmetriaFindings: _cymmetriaFindings,
                     adware: _adware,
                     virus: _virus,
                     mail: _mail,
+                    trojan: _trojan,
+                    ransomware: _ransomware,
                     snowIncidents: result
                 });
             if (_date != null) {
                 newReport.date = _date;
             }
+
             newReport.save(
                 (err) => {
                     if (err)
@@ -199,21 +213,20 @@ class Dashboard {
         });
     }
 //------------------------------------Building update report route----------------------------//
-        updateReport(_jobId, _mcafee, _teknas, _snow, _umbrella, _reputationList,
+        updateReport(_jobId, _mcafee, _teknas, _snow, _reputationList,
         _behavioral, _DGA, _fileAnalysis, _LM, _EP,
         _suspiciousDestination, _suspiciousBinariesOT,
         _newSuspiciousBinary, _newVulnerableFile,
         _vulnerableFileWasFound, _vulnerableBinaries,
-        _tpsFindings, _ziftenFindings, _mcafeeFindings,
-        _adware, _virus, _mail, _date) {
+        _tpsFindings, _ziftenFindings, _mcafeeFindings,_userFindings, _umbrellaFindings, _cymmetriaFindings,
+        _adware, _virus, _mail, _trojan, _ransomware, _date) {
         return new Promise((resolve, reject) => {
             //save report back to DB by date
-            report.update({date: _date}, {$set: {
+            Report.update({date: _date}, {$set: {
                 jobId: _jobId,
                 mcafee: _mcafee,
                 teknas: _teknas,
                 snow: _snow,
-                umbrella: _umbrella,
                 reputationList: _reputationList,
                 behavioral: _behavioral,
                 DGA: _DGA,
@@ -230,10 +243,23 @@ class Dashboard {
                 ziftenFindings: _ziftenFindings,
                 mcafeeFindings: _mcafeeFindings,
                 userFindings: _userFindings,
+                umbrellaFindings: _umbrellaFindings,
+                cymmetriaFindings: _cymmetriaFindings,
                 adware: _adware,
                 virus: _virus,
                 mail: _mail,
-                date: _date}})
+                trojan: _trojan,
+                ransomware: _ransomware,
+                date: _date}},
+                (err, result) => {
+                    if (err) reject(err);
+                    else console.log(result);
+                  });
+              Report.find({ date: `${_date}` },
+                (err, result) => {
+                    if (err) reject(err);
+                    else resolve(result);
+                });
             });
         };
 //-------------------------------------------END OF BUILDING------------------------------------//
@@ -269,7 +295,7 @@ class Dashboard {
     
     getFindingsBySource() {
         return new Promise((resolve, reject) => {
-            Report.find({},{date:1, tpsFindings:1, ziftenFindings: 1, mcafeeFindings: 1, userFindings: 1},
+            Report.find({},{date:1, tpsFindings:1, ziftenFindings: 1, mcafeeFindings: 1, userFindings: 1, umbrellaFindings: 1, cymmetriaFindings: 1},
                 (err, result) => {
                     if (err) reject(err);
                     else resolve(result);
@@ -279,7 +305,7 @@ class Dashboard {
 
     getFindingsByType() {
         return new Promise((resolve, reject) => {
-            Report.find({},{date:1, adware:1, virus: 1, mail: 1},
+            Report.find({},{date:1, adware:1, virus: 1, mail: 1, trojan: 1, ransomware: 1},
                 (err, result) => {
                     if (err) reject(err);
                     else resolve(result);

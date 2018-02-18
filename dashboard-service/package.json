@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/deepHash/dashboard-service.git"
   },
-  "author": "Roy Levi and Igal Tsesis",
+  "author": "Roy Levy and Igal Tsesis",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/deepHash/dashboard-service/issues"

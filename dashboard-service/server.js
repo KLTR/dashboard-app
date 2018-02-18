@@ -2,7 +2,7 @@ const express = require('express'),
     bodyParser = require('body-parser'),
     dashboard = require('./controllers'),
     app = express(),
-    port = process.env.PORT || 3000,
+    port = process.env.PORT || 3002,
     data = dashboard();
 
 app.use(bodyParser.json());
@@ -29,7 +29,6 @@ app.post('/enterNewReport/', (req, res, next) => {
         req.body.mcafee,
         req.body.teknas,
         req.body.snow,
-        req.body.umbrella,
         req.body.reputationList,
         req.body.behavioral,
         req.body.DGA,
@@ -46,9 +45,13 @@ app.post('/enterNewReport/', (req, res, next) => {
         req.body.ziftenFindings,
         req.body.mcafeeFindings,
         req.body.userFindings,
+        req.body.umbrellaFindings,
+        req.body.cymmetriaFindings,
         req.body.adware,
         req.body.virus,
         req.body.mail,
+        req.body.trojan,
+        req.body.ransomware,
         req.body.date).then((result) => {
         result.length === 0 ? next() : res.status(200).json(result);
     }, (error) => {
@@ -58,12 +61,11 @@ app.post('/enterNewReport/', (req, res, next) => {
 })
 
 app.post('/updateReport/', (req, res, next) => {
-    data.enterNewReport(
+    data.updateReport(
         req.body.jobId,
         req.body.mcafee,
         req.body.teknas,
         req.body.snow,
-        req.body.umbrella,
         req.body.reputationList,
         req.body.behavioral,
         req.body.DGA,
@@ -79,10 +81,14 @@ app.post('/updateReport/', (req, res, next) => {
         req.body.tpsFindings,
         req.body.ziftenFindings,
         req.body.mcafeeFindings,
-		   req.body.userFindings,	
+        req.body.userFindings,	
+        req.body.umbrellaFindings,
+        req.body.cymmetriaFindings,
         req.body.adware,
         req.body.virus,
         req.body.mail,
+        req.body.trojan,
+        req.body.ransomware,
         req.body.date).then((result) => {
         result.length === 0 ? next() : res.status(200).json(result);
     }, (error) => {
